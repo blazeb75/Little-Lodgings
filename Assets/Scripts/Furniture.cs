@@ -4,7 +4,7 @@ using UnityEngine;
 public class Furniture : MonoBehaviour
 {
     public Vector3 origin;
-    PlacementGrid grid;
+    public PlacementGrid grid;
     public Vector2[] reservations;
 
     public List<Node> occupiedNodes;
@@ -12,7 +12,8 @@ public class Furniture : MonoBehaviour
 
     private void Start()
     {
-        grid = transform.parent.parent.gameObject.GetComponent<PlacementGrid>();
+        if (grid == null)
+            grid = transform.parent.parent.gameObject.GetComponent<PlacementGrid>();
     }
 
     List<Node> GetOverlappingNodes()

@@ -125,6 +125,7 @@ public class Decorator : MonoBehaviour
         }
 
         selectedObject = Instantiate(obj);
+        selectedObject.GetComponent<Furniture>().grid = targetGrid;
         ChangeMode(Mode.PlacingObject);
         return true;
     }
