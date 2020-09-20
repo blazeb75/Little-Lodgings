@@ -9,12 +9,12 @@ public class Decorator : MonoBehaviour
     public GameObject selectedPrefab;
     public int selectedRotation;
 
-    public enum Mode{Idle, PlacingObject}
+    public enum Mode { Idle, PlacingObject }
     public Mode mode;
 
     public bool ChangeMode(Mode newMode)
     {
-        if(newMode == mode)
+        if (newMode == mode)
         {
             return false;
         }
@@ -24,7 +24,7 @@ public class Decorator : MonoBehaviour
             {
                 CancelPlaceObject();
             }
-            if(newMode == Mode.PlacingObject)
+            if (newMode == Mode.PlacingObject)
             {
                 StartPlacingObject();
             }
@@ -36,14 +36,15 @@ public class Decorator : MonoBehaviour
 
     private void Update()
     {
-        if(mode == Mode.Idle)
+        if (mode == Mode.Idle)
         {
             if (Input.GetMouseButtonDown(0))
             {
                 Furniture hit = targetGrid.CursorFurniture();
-                if(hit != null)
+                if (hit != null)
                 {
                     selectedObject = hit.gameObject;
+                    hit.Remove();
                     ChangeMode(Mode.PlacingObject);
                 }
             }
@@ -54,7 +55,7 @@ public class Decorator : MonoBehaviour
             PlacingObject();
         }
     }
-    
+
     void StartPlacingObject()
     {
         targetGrid.SetGridActive(true);
@@ -67,8 +68,10 @@ public class Decorator : MonoBehaviour
     void PlacingObject()
     {
         Node node = targetGrid.CursorNode();
+        Furniture furniture = selectedObject.GetComponent<Furniture>();
+        furniture.node = node;
 
-        if(node == null)
+        if (node == null || furniture.GetOverlappingNodes().Contains(null))
         {
             selectedObject.SetActive(false);
             return;
@@ -78,7 +81,6 @@ public class Decorator : MonoBehaviour
             selectedObject.SetActive(true);
         }
 
-        Furniture furniture = selectedObject.GetComponent<Furniture>();
         furniture.SnapToNode(node);
         selectedObject.transform.rotation = node.transform.rotation;
 
@@ -91,17 +93,17 @@ public class Decorator : MonoBehaviour
 
         selectedObject.transform.Rotate(0, 90 * selectedRotation, 0);
 
-        if (Input.GetMouseButtonDown(0) || Controls.Accept() && furniture.CanPlace(node))
+        if ((Input.GetMouseButtonDown(0) || Controls.Accept()) && furniture.CanPlaceHere())
         {
             PlaceObject(node);
         }
-
     }
 
     void PlaceObject(Node node)
     {
         Furniture furniture = selectedObject.GetComponent<Furniture>();
         furniture.Place(node);
+        furniture.node = null;
         selectedObject = null;
         selectedRotation = 0;
         ChangeMode(Mode.Idle);
@@ -116,7 +118,6 @@ public class Decorator : MonoBehaviour
         }
         selectedRotation = 0;
     }
-
     public bool CreatePlacingObject(GameObject obj)
     {
         if (mode != Mode.Idle)
@@ -125,9 +126,9 @@ public class Decorator : MonoBehaviour
         }
 
         selectedObject = Instantiate(obj);
+        selectedObject.transform.parent = targetGrid.transform;
         selectedObject.GetComponent<Furniture>().grid = targetGrid;
         ChangeMode(Mode.PlacingObject);
         return true;
     }
-
 }

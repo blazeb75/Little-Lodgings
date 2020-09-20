@@ -4,27 +4,37 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
-    public enum State { Open, Occupied, Reserved}
+    public enum State { Open, Occupied, Reserved, Unused}
 
-    [HideInInspector] public GridBoard parent;
+    [HideInInspector] public PlacementGrid parent;
     public Furniture furniture;
     public List<Furniture> reservingFurniture;
     public new BoxCollider collider;
+    public Vector2 position;
 
-    public State state
+    [SerializeField] State state;
+
+    public State GetState()
     {
-        get
-        {
-            if (furniture != null && reservingFurniture.Count != 0) Debug.LogError("Node is both occupied and reserved.", this);
-            if (furniture != null) return State.Occupied;
-            else if (reservingFurniture.Count != 0) return State.Reserved;
-            else return State.Open;
-        }
+        if (state == State.Unused)
+            return state;
+        if (furniture != null && reservingFurniture.Count != 0)
+            Debug.LogError("Node is both occupied and reserved.", this);
+        if (furniture != null)
+            state = State.Occupied;
+        else if (reservingFurniture.Count != 0)
+            state = State.Reserved;
+        else
+            state = State.Open;
+        return state;
     }
 
     private void Awake()
     {
-        parent = transform.parent.gameObject.GetComponent<GridBoard>();
+        if (GetState() == State.Unused)
+            Destroy(gameObject);
+
+        parent = transform.parent.gameObject.GetComponent<PlacementGrid>();
         if (parent == null)
         {
             Debug.LogError("Node has no GridBoard in parent object", this);
@@ -35,7 +45,7 @@ public class Node : MonoBehaviour
 
     private void Start()
     {
-        collider.size = new Vector3(parent.parent.interval, 0.25f, parent.parent.interval);
+        collider.size = new Vector3(parent.interval, 0.25f, parent.interval);
     }
 
     public void Occupy(Furniture furniture)

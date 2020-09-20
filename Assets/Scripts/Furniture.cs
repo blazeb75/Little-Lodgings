@@ -3,12 +3,24 @@ using UnityEngine;
 
 public class Furniture : MonoBehaviour
 {
-    public Vector3 origin;
+    
+    public Vector2 size;
     public PlacementGrid grid;
     public Vector2[] reservations;
 
     public List<Node> occupiedNodes;
     public List<Node> reservedNodes;
+
+    public Node node;
+    public Vector3 offset;
+
+    public Vector3 origin
+    {
+        get => new Vector3(
+            1 - size.x + offset.x,
+            offset.y,
+            1 - size.y + offset.z);
+    }
 
     private void Start()
     {
@@ -16,57 +28,45 @@ public class Furniture : MonoBehaviour
             grid = transform.parent.parent.gameObject.GetComponent<PlacementGrid>();
     }
 
-    List<Node> GetOverlappingNodes()
-    {        
-        Collider col = GetComponent<Collider>();
+    public List<Node> GetOverlappingNodes()
+    {
         List<Node> nodes = new List<Node>();
-        foreach (Node node in grid.GetComponentsInChildren<Node>())
+        if(node == null)
         {
-            if (col.bounds.Intersects(node.collider.bounds))
+            return nodes;
+        }
+        for (int i = 0; i < size.x; i++)
+        {
+            for (int j = 0; j < size.y; j++)
             {
-                nodes.Add(node);
+                nodes.Add(grid.GetNode(node.position.x + i, node.position.y + j));
             }
         }
-
         return nodes;
     }
 
-    List<Node> GetReserveNodes(Node originNode)
+    public List<Node> GetReserveNodes()
     {
         List<Node> nodes = new List<Node>();
         foreach (Vector2 res in reservations)
         {
-            Vector3 nodePos = transform.position - origin;
-            float interval = originNode.parent.parent.interval;
-            nodePos.x += res.x * interval;
-            nodePos.z += res.y * interval;
-            Collider[] overlaps = Physics.OverlapBox(nodePos, Vector3.one, transform.rotation, LayerMask.GetMask("Grid"));
-            if(overlaps.Length > 1)
-            {
-                Debug.LogWarning("Multiple nodes hit. " + overlaps.Length + " " + overlaps);
-            }
-            if (overlaps.Length == 1)
-            {
-                Node resNode = overlaps[0].GetComponent<Node>();
-                nodes.Add(resNode);
-            }
+            nodes.Add(grid.GetNode(node.position + res));
         }
         return nodes;
     }
 
-    public bool CanPlace(Node node)
+    public bool CanPlaceHere()
     {
-        transform.position = node.transform.position + origin;
         foreach (Node n in GetOverlappingNodes())
         {
-            if (n.state != Node.State.Open)
+            if (n == null || n.GetState() != Node.State.Open)
             {
                 return false;
             }
         }
-        foreach (Node n in GetReserveNodes(node))
+        foreach (Node n in GetReserveNodes())
         {
-            if (n.state == Node.State.Occupied)
+            if (n == null || !(n.GetState() == Node.State.Open || n.GetState() == Node.State.Reserved))
             {
                 return false;
             }
@@ -89,9 +89,10 @@ public class Furniture : MonoBehaviour
             n.Occupy(this);
             occupiedNodes.Add(n);
         }
-        foreach(Node n in GetReserveNodes(node))
+        foreach(Node n in GetReserveNodes())
         {
             n.reservingFurniture.Add(this);
+            reservedNodes.Add(n);
         }
     }
 
