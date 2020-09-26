@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-#if UNITY_EDITOR
     static Vector2 lastMousePosition;
-#endif
 
     static float priorPinch;
 
@@ -60,8 +58,8 @@ public class InputHandler : MonoBehaviour
     public static IEnumerable<Vector2> Drags()
     {        
         list.Clear();
-       
-#if UNITY_EDITOR
+
+#if UNITY_EDITOR || UNITY_STANDALONE
         if (Input.GetMouseButton(0) && !Input.GetMouseButtonDown(0))
         {
             Vector2 newPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
@@ -70,7 +68,7 @@ public class InputHandler : MonoBehaviour
             deltaPos.y = deltaPos.y / Screen.height;
             list.Add(deltaPos);
         }
-#endif
+#else
         if (Input.touchCount != 1)
         {
             return list;
@@ -85,6 +83,7 @@ public class InputHandler : MonoBehaviour
                 list.Add(deltaPos);
             }
         }
+#endif
         return list;
     }
 
