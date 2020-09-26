@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class CameraControls : MonoBehaviour
 {
-    public float moveSpeed = 15f;
-    public float zoomFactor = 5f;
-    public float minFov = 10f;
+    [Header("Settings")]
+    public float moveSpeed = 30f;
+    public float zoomFactor = 1f;
+    public float minFov = 30f;
     public float maxFov = 60f;
 
     new Camera camera;
@@ -20,14 +21,20 @@ public class CameraControls : MonoBehaviour
     void Update()
     {
         //Drag
-        foreach(Vector2 drag in InputHandler.Drags())
+        if (Decorator.instance.SelectedObject == null)
         {
-            transform.Translate(new Vector3(drag.x, drag.y, 0) * moveSpeed);
+            foreach (Vector2 drag in InputHandler.Drags())
+            {
+                transform.Translate(new Vector3(drag.x, drag.y, 0) * moveSpeed * camera.fieldOfView / 30);
+            }
         }
 
         //Pinch zoom
+#if UNITY_IOS || UNITY_ANDROID
         camera.fieldOfView += InputHandler.Pinch() * zoomFactor;
-
+#else
+        camera.fieldOfView -= Input.mouseScrollDelta.y * zoomFactor;
+#endif
         camera.fieldOfView = Mathf.Clamp(camera.fieldOfView, minFov, maxFov);
     }
 }
