@@ -3,16 +3,19 @@ using UnityEngine;
 
 public class Furniture : MonoBehaviour
 {
-    
-    public Vector2 size;
-    public PlacementGrid grid;
-    public Vector2[] reservations;
+    public enum Tags { Light, Table, Bed, Seat, Entertaining, Storage}
 
+    [Header("Settings")]
+    public Tags[] tags;
+    public Vector2 size;
+    public Vector2[] reservations;
+    public Vector3 offset;
+
+    [Header("Debug")]
+    public PlacementGrid grid;
+    public Node node;
     public List<Node> occupiedNodes;
     public List<Node> reservedNodes;
-
-    public Node node;
-    public Vector3 offset;
 
     public Vector3 origin
     {
@@ -25,7 +28,12 @@ public class Furniture : MonoBehaviour
     private void Start()
     {
         if (grid == null)
-            grid = transform.parent.parent.gameObject.GetComponent<PlacementGrid>();
+            grid = transform.parent.gameObject.GetComponent<PlacementGrid>();
+
+        if(TryGetComponent<MeshCollider>(out MeshCollider col))
+        {
+            col.sharedMesh = GetComponentInChildren<MeshFilter>().mesh;
+        }
     }
 
     public List<Node> GetOverlappingNodes()

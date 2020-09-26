@@ -108,11 +108,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8e549b379051941959c5fb1931ddff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tags: 
   size: {x: 4, y: 4}
-  grid: {fileID: 0}
   reservations:
   - {x: 4, y: 2}
+  offset: {x: 0, y: -1.7, z: 0}
+  grid: {fileID: 0}
+  node: {fileID: 0}
   occupiedNodes: []
   reservedNodes: []
-  node: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}

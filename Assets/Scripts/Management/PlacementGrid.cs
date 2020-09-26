@@ -46,6 +46,7 @@ public class PlacementGrid : MonoBehaviour
                     nodes.Add(node);
                     grid[i, j] = node;
                     node.position = new Vector2(i, j);
+                    node.gameObject.SetActive(false);
                 }
 
             }
