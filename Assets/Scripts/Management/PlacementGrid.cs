@@ -13,6 +13,7 @@ public class PlacementGrid : MonoBehaviour
     public Vector2 size;
     public Vector2 origin;
     public List<Node> nodes;
+    public List<Furniture> furniture;
 
     [Header("Debug")]
     public Node[,] grid;
@@ -53,6 +54,24 @@ public class PlacementGrid : MonoBehaviour
 
         }
 
+    }
+
+    public bool Clear()
+    {
+        if(furniture.Count == 0)
+        {
+            return false;
+        }
+        else
+        {
+            Furniture[] furns = furniture.ToArray();
+            foreach(Furniture furn in furns)
+            {
+                Destroy(furn.gameObject);
+            }
+            Debug.Log("Cleared");
+            return true;
+        }
     }
 
     public Node CursorNode()

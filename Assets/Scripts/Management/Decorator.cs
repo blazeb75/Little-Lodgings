@@ -118,17 +118,37 @@ public class Decorator : MonoBehaviour
         }
         selectedRotation = 0;
     }
+
+    public void Rotate()
+    {
+        selectedRotation += 1;
+        if (selectedRotation == 4) selectedRotation = 0;
+    }
+
     public bool CreatePlacingObject(GameObject obj)
     {
         if (mode != Mode.Idle)
         {
             return false;
         }
-
-        selectedObject = Instantiate(obj);
-        selectedObject.transform.parent = targetGrid.transform;
-        selectedObject.GetComponent<Furniture>().grid = targetGrid;
+        selectedObject = CreateFurniture(obj, targetGrid);
         ChangeMode(Mode.PlacingObject);
         return true;
+    }
+
+    public void Clear()
+    {
+        targetGrid.Clear();
+    }
+
+    public static GameObject CreateFurniture(GameObject prefab, PlacementGrid grid)
+    {
+        Debug.Log("Instantiated " + prefab.name);
+        GameObject go = Instantiate(prefab);
+        go.transform.parent = grid.transform;
+        Furniture furn = go.GetComponent<Furniture>();
+        furn.grid = grid;
+        grid.furniture.Add(furn);
+        return go;
     }
 }

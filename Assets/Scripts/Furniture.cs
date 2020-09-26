@@ -36,6 +36,14 @@ public class Furniture : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if(grid != null)
+        {
+            grid.furniture.Remove(this);
+        }
+    }
+
     public List<Node> GetOverlappingNodes()
     {
         List<Node> nodes = new List<Node>();
