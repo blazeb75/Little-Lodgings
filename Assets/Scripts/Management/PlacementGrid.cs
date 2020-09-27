@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using System.Linq;
 
 public class PlacementGrid : MonoBehaviour
@@ -22,7 +23,7 @@ public class PlacementGrid : MonoBehaviour
     void Start()
     {
         CreateGrid();
-        
+
     }
 
     public void CreateGrid()
@@ -58,14 +59,14 @@ public class PlacementGrid : MonoBehaviour
 
     public bool Clear()
     {
-        if(furniture.Count == 0)
+        if (furniture.Count == 0)
         {
             return false;
         }
         else
         {
             Furniture[] furns = furniture.ToArray();
-            foreach(Furniture furn in furns)
+            foreach (Furniture furn in furns)
             {
                 Destroy(furn.gameObject);
             }
@@ -104,12 +105,12 @@ public class PlacementGrid : MonoBehaviour
 
     public void SetGridActive(bool state)
     {
-        foreach(Node node in nodes)
+        foreach (Node node in nodes)
         {
             node.gameObject.SetActive(state);
         }
     }
-   
+
     public Node GetNode(int x, int y)
     {
         try
@@ -149,10 +150,30 @@ public class PlacementGrid : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        foreach(Node node in nodes)
+        if (!EditorApplication.isPlaying)
         {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireCube(node.transform.position, node.collider.size);
+            Vector3 nodeSize = new Vector3(interval, 0.2f, interval);
+            for (int i = 0; i < size.x; i++)
+            {
+                for (int j = 0; j < size.y; j++)
+                {
+                    Vector3 pos = transform.position;
+                    pos.x += origin.x;
+                    pos.z += origin.y;
+                    pos += transform.forward * i * interval;
+                    pos += transform.right * j * interval;
+                    Gizmos.color = Color.cyan;
+                    Gizmos.DrawWireCube(pos, nodeSize);
+                }
+            }
+        }
+        else
+        {
+            foreach (Node node in nodes)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawWireCube(node.transform.position, node.collider.size);
+            }
         }
     }
 #endif
