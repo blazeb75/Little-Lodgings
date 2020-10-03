@@ -219,4 +219,135 @@ public class Decorator : MonoBehaviour
         grid.furniture.Add(furn);
         return go;
     }
+
+    public bool TryCreateNearCenter(GameObject obj)
+    {
+        return TryCreateNearCenter(obj, targetGrid, out _, out _);
+    }
+    public bool TryCreateNearCenter(GameObject obj, out GameObject newInstance, out Furniture newFurniture)
+    {
+        return TryCreateNearCenter(obj, targetGrid, out newInstance, out newFurniture);
+    }
+    public bool TryCreateNearCenter(GameObject obj, PlacementGrid grid, out GameObject newInstance, out Furniture newFurniture)
+    {
+        //if (mode != Mode.Idle)
+        //{
+        //    newInstance = null;
+        //    return false;
+        //}
+        newInstance = CreateFurniture(obj, targetGrid);
+        newFurniture = newInstance.GetComponent<Furniture>();
+
+        int xs = Mathf.FloorToInt(grid.size.x / 2f), ys = Mathf.FloorToInt(grid.size.y / 2f); // Start coordinates
+
+        // Check point (xs, ys)
+        int d = 1, x1, x2, y1, y2;
+        Node node;
+        bool outOfRange = false;
+        while (!outOfRange)
+        {
+            outOfRange = true;
+            for (int i = 0; i < d + 1; i++)
+            {
+                x1 = xs - d + i;
+                y1 = ys - i;
+
+                // Check point (x1, y1)
+                if (!(x1 >= grid.size.x || x1 < 0 || y1 >= grid.size.y || y1 < 0))
+                {
+                    outOfRange = false;
+                    node = grid.GetNode(x1, y1);
+                    if (newFurniture.CanPlaceHere(node))
+                    {
+                        newFurniture.Place(node);
+                        return true;
+                    }
+                }
+
+                x2 = xs + d - i;
+                y2 = ys + i;
+
+                // Check point (x2, y2)
+                if (!(x2 >= grid.size.x || x2 < 0 || y2 >= grid.size.y || y2 < 0))
+                {
+                    outOfRange = false;
+                    node = grid.GetNode(x2, y2);
+                    if (newFurniture.CanPlaceHere(node))
+                    {
+                        newFurniture.Place(node);
+                        return true;
+                    }
+                }
+            }
+
+
+            for (int i = 1; i < d; i++)
+            {
+                x1 = xs - i;
+                y1 = ys + d - i;
+
+                // Check point (x1, y1)
+                if (!(x1 >= grid.size.x || x1 < 0 || y1 >= grid.size.y || y1 < 0))
+                {
+                    outOfRange = false;
+                    node = grid.GetNode(x1, y1);
+                    if (newFurniture.CanPlaceHere(node))
+                    {
+                        newFurniture.Place(node);
+                        return true;
+                    }
+                }
+
+                x2 = xs + i;
+                y2 = ys - d + i;
+
+                // Check point (x2, y2)
+                if (!(x2 >= grid.size.x || x2 < 0 || y2 >= grid.size.y || y2 < 0))
+                {
+                    outOfRange = false;
+                    node = grid.GetNode(x2, y2);
+                    if (newFurniture.CanPlaceHere(node))
+                    {
+                        newFurniture.Place(node);
+                        return true;
+                    }
+                }
+            }
+            d++;
+        }
+
+        //for(int i = 0; i < grid.size.x / 2f - 1; i++)
+        //{
+        //    for (int j = 0; j < grid.size.y / 2f - 1; j++)
+        //    {
+        //        Node node = grid.GetNode(Mathf.FloorToInt(grid.size.x / 2f - i), Mathf.FloorToInt(grid.size.y / 2f - j));
+        //        newFurniture.SnapToNode(node);
+        //        if (newFurniture.CanPlaceHere())
+        //        {
+        //            newFurniture.Place(node);
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("L " + Mathf.FloorToInt(grid.size.x / 2f - i) + "," + Mathf.FloorToInt(grid.size.y / 2f - j));
+        //            node = grid.GetNode(Mathf.FloorToInt(grid.size.x / 2f + i + 1), Mathf.FloorToInt(grid.size.y / 2f + j + 1));
+
+        //            newFurniture.SnapToNode(node);
+
+        //            if (newFurniture.CanPlaceHere())
+        //            {
+        //                newFurniture.Place(node);
+        //                return true;
+        //            }
+        //            Debug.Log("R " + Mathf.FloorToInt(grid.size.x / 2f + i + 1) + "," + Mathf.FloorToInt(grid.size.y / 2f + j + 1));
+
+        //        }
+
+        //    }
+
+        //}
+        //ChangeMode();
+        Destroy(newInstance);
+        return false;
+    }
 }

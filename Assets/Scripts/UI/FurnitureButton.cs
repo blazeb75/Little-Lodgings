@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class FurnitureButton : MonoBehaviour
 {
+    private bool placeInstantly = true;
     public Decorator decorator;
     public GameObject furniture;
     Button button;
@@ -23,6 +24,13 @@ public class FurnitureButton : MonoBehaviour
 
     void MessageDecorator()
     {
-        decorator.CreatePlacingObject(furniture);
+        if (placeInstantly)
+        {
+            decorator.TryCreateNearCenter(furniture);
+        }
+        else
+        {
+            decorator.CreatePlacingObject(furniture);
+        }
     }
 }

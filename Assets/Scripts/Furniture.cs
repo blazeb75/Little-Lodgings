@@ -4,10 +4,9 @@ using UnityEngine;
 public class Furniture : MonoBehaviour
 {
     public enum Tags { Light, Table, Bed, Seat, Entertaining, Storage}
-
     [Header("Settings")]
     public Tags[] tags;
-    public Vector2 size;
+    public Vector2 size = new Vector2 (1, 1);
     public Vector2[] reservations;
     public Vector3 offset;
 
@@ -20,9 +19,10 @@ public class Furniture : MonoBehaviour
     public Vector3 origin
     {
         get => new Vector3(
-            1 - size.x + offset.x,
+
+            (size.x % 2) / 2f - 0.5f + offset.x,
             offset.y,
-            1 - size.y + offset.z);
+            (size.y % 2) / 2f - 0.5f + offset.z);
     }
 
     private void Start()
@@ -46,22 +46,49 @@ public class Furniture : MonoBehaviour
 
     public List<Node> GetOverlappingNodes()
     {
+        return GetOverlappingNodes(node);
+    }
+    public List<Node> GetOverlappingNodes(Node node)
+    {
         List<Node> nodes = new List<Node>();
         if(node == null)
         {
             return nodes;
         }
-        for (int i = 0; i < size.x; i++)
+        for (int i = 1; i <= size.x; i++)
         {
-            for (int j = 0; j < size.y; j++)
+            float x, y; 
+            if (i % 2 == 1)
             {
-                nodes.Add(grid.GetNode(node.position.x + i, node.position.y + j));
+                x = node.position.x + (-i / 2f) + 0.5f;
+            }
+            else
+            {
+                x = node.position.x + i / 2f;
+            }
+            for (int j = 1; j <= size.y; j++)
+            {
+                
+                if (j % 2 == 1)
+                {
+                    y = node.position.y + (-j / 2f) + 0.5f;
+                }
+                else
+                {
+                    y = node.position.y + j / 2f;
+                }
+                //Debug.Log("In " + i.ToString() + j.ToString() + " Out " + x.ToString() + y.ToString());
+                nodes.Add(grid.GetNode(x, y));
             }
         }
         return nodes;
     }
 
     public List<Node> GetReserveNodes()
+    {
+        return GetReserveNodes(node);
+    }
+    public List<Node> GetReserveNodes(Node node)
     {
         List<Node> nodes = new List<Node>();
         foreach (Vector2 res in reservations)
@@ -73,14 +100,23 @@ public class Furniture : MonoBehaviour
 
     public bool CanPlaceHere()
     {
-        foreach (Node n in GetOverlappingNodes())
+        return CanPlaceHere(node);
+    }
+    public bool CanPlaceHere(Node node)
+    {
+        if (node == null)         
+        {
+            Debug.LogWarning("Checked CanPlaceHere on null node");
+            return false; 
+        }
+        foreach (Node n in GetOverlappingNodes(node))
         {
             if (n == null || n.GetState() != Node.State.Open)
             {
                 return false;
             }
         }
-        foreach (Node n in GetReserveNodes())
+        foreach (Node n in GetReserveNodes(node))
         {
             if (n == null || !(n.GetState() == Node.State.Open || n.GetState() == Node.State.Reserved))
             {
@@ -94,6 +130,7 @@ public class Furniture : MonoBehaviour
     {
         transform.position = node.transform.position;
         transform.position -= origin;
+        this.node = node;
     }
 
     public void Place(Node node)

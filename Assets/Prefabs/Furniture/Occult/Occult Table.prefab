@@ -86,6 +86,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Occult Table
       objectReference: {fileID: 0}
+    - target: {fileID: 8802127955882163123, guid: 929292e28157226408f82a8459fb704a,
+        type: 3}
+      propertyPath: size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802127955882163123, guid: 929292e28157226408f82a8459fb704a,
+        type: 3}
+      propertyPath: size.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8802127955882163135, guid: 929292e28157226408f82a8459fb704a,
         type: 3}
       propertyPath: m_LocalPosition.x

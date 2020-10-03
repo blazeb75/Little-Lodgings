@@ -38,8 +38,8 @@ public class PlacementGrid : MonoBehaviour
                 Vector3 pos = transform.position;
                 pos.x += origin.x;
                 pos.z += origin.y;
-                pos += transform.forward * i * interval;
-                pos += transform.right * j * interval;
+                pos += transform.right * i * interval;
+                pos += transform.forward * j * interval;
 
                 GameObject nodeObj = Instantiate(nodePrefab, pos, transform.rotation, transform);
                 if (nodeObj != null)
@@ -48,6 +48,7 @@ public class PlacementGrid : MonoBehaviour
                     nodes.Add(node);
                     grid[i, j] = node;
                     node.position = new Vector2(i, j);
+                    nodeObj.name = i + ", " + j;
                     node.gameObject.SetActive(false);
                 }
 
@@ -160,8 +161,8 @@ public class PlacementGrid : MonoBehaviour
                     Vector3 pos = transform.position;
                     pos.x += origin.x;
                     pos.z += origin.y;
-                    pos += transform.forward * i * interval;
-                    pos += transform.right * j * interval;
+                    pos += transform.right * i * interval;
+                    pos += transform.forward * j * interval;
                     Gizmos.color = Color.cyan;
                     Gizmos.DrawWireCube(pos, nodeSize);
                 }
