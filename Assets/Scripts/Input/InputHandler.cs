@@ -80,7 +80,7 @@ public class InputHandler : MonoBehaviour
                 Vector2 deltaPos = touch.deltaPosition;
                 deltaPos.x = deltaPos.x / Screen.width;
                 deltaPos.y = deltaPos.y / Screen.height;
-                list.Add(deltaPos);
+                list.Add(-deltaPos);
             }
         }
 #endif
