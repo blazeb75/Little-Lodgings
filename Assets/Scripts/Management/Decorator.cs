@@ -20,6 +20,8 @@ public class Decorator : MonoBehaviour
 
     private Node previousNode;
 
+    public GameObject editModeCanvas;
+
     public GameObject SelectedObject
     {
         get => selectedObject;
@@ -49,6 +51,11 @@ public class Decorator : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        editModeCanvas.SetActive(false);
+    }
+
     public bool ChangeMode(Mode newMode)
     {
         if (newMode == mode)
@@ -73,6 +80,10 @@ public class Decorator : MonoBehaviour
 
     private void Update()
     {
+        if(targetGrid == null)
+        {
+            return;
+        }
         if (mode == Mode.Idle)
         {
             if (Input.GetMouseButtonDown(0))
@@ -199,7 +210,6 @@ public class Decorator : MonoBehaviour
         ChangeMode(Mode.PlacingObject);
         return true;
     }
-
     public void Clear()
     {
         if(mode == Mode.PlacingObject)
@@ -208,7 +218,10 @@ public class Decorator : MonoBehaviour
         }
         targetGrid.Clear();
     }
-
+    public void ExitEditMode()
+    {
+        targetGrid.ExitEditMode();
+    }
     public static GameObject CreateFurniture(GameObject prefab, PlacementGrid grid)
     {
         Debug.Log("Instantiated " + prefab.name);
@@ -315,38 +328,6 @@ public class Decorator : MonoBehaviour
             }
             d++;
         }
-
-        //for(int i = 0; i < grid.size.x / 2f - 1; i++)
-        //{
-        //    for (int j = 0; j < grid.size.y / 2f - 1; j++)
-        //    {
-        //        Node node = grid.GetNode(Mathf.FloorToInt(grid.size.x / 2f - i), Mathf.FloorToInt(grid.size.y / 2f - j));
-        //        newFurniture.SnapToNode(node);
-        //        if (newFurniture.CanPlaceHere())
-        //        {
-        //            newFurniture.Place(node);
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("L " + Mathf.FloorToInt(grid.size.x / 2f - i) + "," + Mathf.FloorToInt(grid.size.y / 2f - j));
-        //            node = grid.GetNode(Mathf.FloorToInt(grid.size.x / 2f + i + 1), Mathf.FloorToInt(grid.size.y / 2f + j + 1));
-
-        //            newFurniture.SnapToNode(node);
-
-        //            if (newFurniture.CanPlaceHere())
-        //            {
-        //                newFurniture.Place(node);
-        //                return true;
-        //            }
-        //            Debug.Log("R " + Mathf.FloorToInt(grid.size.x / 2f + i + 1) + "," + Mathf.FloorToInt(grid.size.y / 2f + j + 1));
-
-        //        }
-
-        //    }
-
-        //}
-        //ChangeMode();
         Destroy(newInstance);
         return false;
     }

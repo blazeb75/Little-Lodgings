@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
 
     public bool debugMode;
 
+    public Camera freeCamera;
+
+    [HideInInspector] public static Camera activeCam;
+
     private void Awake()
     {
         if (instance == null)
@@ -20,6 +24,21 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Duplicate GameManager found. Deleting...", this.gameObject);
         }
 
+    }
+
+    private void Start()
+    {
+        if(activeCam == null)
+        {
+            activeCam = Camera.main;
+        }
+    }
+
+    public void SwitchCamera(Camera newCamera)
+    {
+        activeCam.gameObject.SetActive(false);
+        newCamera.gameObject.SetActive(true);
+        activeCam = newCamera;
     }
 
 }

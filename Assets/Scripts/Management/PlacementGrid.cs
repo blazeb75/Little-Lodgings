@@ -6,6 +6,7 @@ using System.Linq;
 
 public class PlacementGrid : MonoBehaviour
 {
+    public Camera editModeCamera;
     public GameObject nodePrefab;
     /// <summary>
     /// The size of each grid tile
@@ -78,7 +79,7 @@ public class PlacementGrid : MonoBehaviour
 
     public Node CursorNode()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = GameManager.activeCam.ScreenPointToRay(Input.mousePosition);
         RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, LayerMask.GetMask("Grid"), QueryTriggerInteraction.Collide);
         foreach (RaycastHit hit in hits)
         {
@@ -92,7 +93,7 @@ public class PlacementGrid : MonoBehaviour
 
     public Furniture CursorFurniture()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = GameManager.activeCam.ScreenPointToRay(Input.mousePosition);
         RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, LayerMask.GetMask("Furniture"), QueryTriggerInteraction.Ignore);
         foreach (RaycastHit hit in hits)
         {
@@ -130,6 +131,25 @@ public class PlacementGrid : MonoBehaviour
     public Node GetNode(Vector2 position)
     {
         return GetNode((int)position.x, (int)position.y);
+    }
+    public Vector3 GetCenter()
+    {
+        Vector3 middle = transform.position;
+        middle.x += size.x / 2f;
+        middle.z += size.y / 2f;
+        return middle;
+    }
+    public void EnterEditMode()
+    {
+        Decorator.instance.targetGrid = this;
+        GameManager.instance.SwitchCamera(editModeCamera);
+        Decorator.instance.editModeCanvas.SetActive(true);
+    }
+    public void ExitEditMode()
+    {
+        Decorator.instance.targetGrid = null;
+        GameManager.instance.SwitchCamera(GameManager.instance.freeCamera);
+        Decorator.instance.editModeCanvas.SetActive(false);
     }
 
     private void OnEnable()
