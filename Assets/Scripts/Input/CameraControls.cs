@@ -25,7 +25,7 @@ public class CameraControls : MonoBehaviour
         {
             foreach (Vector2 drag in InputHandler.Drags())
             {
-                transform.Translate(new Vector3(drag.x, drag.y, 0) * moveSpeed * camera.fieldOfView / 30);
+                transform.Translate(new Vector3(drag.x, drag.y * 0.6f, 0) * moveSpeed * camera.fieldOfView / 30);
             }
         }
 
