@@ -12,7 +12,6 @@ using UnityEngine.WSA;
 public static class FurnitureDatabase
 {
     private static GameObject furnitureBase;
-    private static Material matBase;
     public static List<GameObject> furniturePrefabs = new List<GameObject>();
 
     static FurnitureDatabase()
@@ -23,21 +22,12 @@ public static class FurnitureDatabase
     private static void Refresh()
     {
         furnitureBase = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Furniture/FurnitureBase.prefab");
-        matBase = AssetDatabase.LoadAssetAtPath<Material>("Assets/Models/FurnitureMatBase.mat");
-        if (matBase == null || furnitureBase == null)
-        {
-            Debug.LogError("Could not find base assets");
-        }
-        else
-        {
-            Debug.Log("Loaded base assets");
-        }
     }
 
     [MenuItem("Automation/Reload All Furniture")]
     public static void LoadAll()
     {
-        if(matBase == null || furnitureBase == null)
+        if(furnitureBase == null)
         {
             Refresh();
         }
@@ -91,20 +81,33 @@ public static class FurnitureDatabase
                 }
                 else
                 {
+                    List<Material> mats = new List<Material>(); 
                     GameObject modelInstance = (GameObject)PrefabUtility.InstantiatePrefab(model, dummyInstance.transform);
-                    Material mat = new Material(matBase);
-                    mat.name = name;
-                    string texturePath = "Assets/Models/Furniture/" + row.Field<string>("Aesthetic") + "/Materials and Textures/" + row.Field<string>("Texture File Name") + ".png";
-                    Texture texture = AssetDatabase.LoadAssetAtPath<Texture>(texturePath);
-                    if(texture == null)
+                    for (int i = 1; i <= 2; i++)
                     {
-                        Debug.LogError("Texture not found at " + texturePath);
+                        if (row.Field<string>("Base Material {i}") == "")
+                        {
+                            continue;
+                        }
+                        else
+                        {                            
+                            Material matBase = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/" + row.Field<string>("Base Material {i}") + ".mat");
+                            Material mat = new Material(matBase);
+                            mat.name = name + i;
+                            string texturePath = "Assets/Models/Furniture/" + row.Field<string>("Aesthetic") + "/Materials and Textures/" + row.Field<string>("Texture {i}") + ".png";
+                            Texture texture = AssetDatabase.LoadAssetAtPath<Texture>(texturePath);
+                            if (texture == null)
+                            {
+                                Debug.LogError("Texture not found at " + texturePath);
+                            }
+                            mat.SetTexture("_MainTex", texture);
+                            string matAssetPath = "Assets/Prefabs/Auto/Materials/" + mat.name + ".mat";
+                            AssetDatabase.CreateAsset(mat, matAssetPath);
+                            Material matAsset = AssetDatabase.LoadAssetAtPath<Material>(matAssetPath);
+                            mats.Add(matAsset);
+                        }
                     }
-                    mat.SetTexture("_MainTex", texture);
-                    string matAssetPath = "Assets/Prefabs/Auto/Furniture/Materials/" + name + ".mat";
-                    AssetDatabase.CreateAsset(mat, matAssetPath);
-                    Material matAsset = AssetDatabase.LoadAssetAtPath<Material>(matAssetPath);
-                    modelInstance.GetComponent<Renderer>().material = matAsset;
+                    modelInstance.GetComponent<Renderer>().materials = mats.ToArray();
                 }
 
                 string folderPath = "Assets/Prefabs/Auto/Furniture/" + row.Field<string>("Aesthetic");
@@ -131,7 +134,7 @@ public static class FurnitureDatabase
         List<string> failedPaths = new List<string>();
         AssetDatabase.DeleteAssets(new string[]{"Assets/Prefabs/Auto/Furniture"}, failedPaths);
         AssetDatabase.CreateFolder("Assets/Prefabs/Auto", "Furniture");
-        AssetDatabase.CreateFolder("Assets/Prefabs/Auto/Furniture", "Materials");
+        AssetDatabase.CreateFolder("Assets/Prefabs/Auto", "Materials");
         AssetDatabase.Refresh();
     }
 
