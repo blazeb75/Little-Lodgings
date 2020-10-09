@@ -3,12 +3,24 @@ using UnityEngine;
 
 public class Furniture : MonoBehaviour
 {
-    public enum Tags { Light, Table, Bed, Seat, Entertaining, Storage}
+    public enum Tags { 
+        ERROR_INVALID,
+        //Kinds of furniture
+        Light, Table, Bed, Seat, Entertaining, Storage,
+        //Aesthetic
+        Base, Royal, Pirate, Enchanted, Occult,
+        //Type
+        Comfort, Surface, Renovation, Accessory,
+        //Placement restrictions
+        BedroomOnly
+    }
     [Header("Settings")]
     public Tags[] tags;
     public Vector2 size = new Vector2 (1, 1);
     public Vector2[] reservations;
     public Vector3 offset;
+    public float cost;
+    public float unlockCost;
 
     [Header("Debug")]
     public PlacementGrid grid;

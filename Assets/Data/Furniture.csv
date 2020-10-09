@@ -1,0 +1,72 @@
+Furniture Name,Aesthetic,Type,Room,Money Cost,Prestige Unlock
+Base Bed,Base,Comfort,Bedroom Only,0,0
+Base Bedside Table,Base,Surface,Any,0,0
+Base Window + Curtains,Base,Renovation,Any,0,0
+Base Floor,Base,Renovation,Any,0,0
+Base Wallpaper,Base,Renovation,Any,0,0
+Base Dining Table,Base,Surface,Communal Only,0,0
+Base Dining Chair,Base,Comfort,Communal Only,0,0
+Base Counter,Base,Surface,Any,0,0
+Base Mat,Base,Accessory,Any,0,0
+Base Floor Lamp,Base,Accessory,Any,0,0
+Base Couch,Base,Comfort,Any,0,0
+Base Arm Chair,Base,Comfort,Any,0,0
+Base Coffee Table,Base,Surface,Any,0,0
+Base Sign,Base,Accessory,Any,0,0
+Base Mailbox,Base,Accessory,Any,0,0
+Royal Bed,Royal,Comfort,Bedroom Only,0,0
+Royal Bedside Table,Royal,Surface,Any,0,0
+Royal Window + Curtains,Royal,Renovation,Any,0,0
+Royal Dining Table,Royal,Surface,Communal Only,0,0
+Royal Dining Chair,Royal,Comfort,Communal Only,0,0
+Royal Floor,Royal,Renovation,Any,0,0
+Royal Wallpaper,Royal,Renovation,Any,0,0
+Royal Mat,Royal,Accessory,Any,0,0
+Royal Couch,Royal,Comfort,Any,0,0
+Royal Arm Chair,Royal,Comfort,Any,0,0
+Royal Coffee Table,Royal,Surface,Any,0,0
+Royal Pot Plant,Royal,Accessory,Any,0,0
+Pirate Bed,Pirate,Comfort,Bedroom Only,0,0
+Pirate Bedside Table,Pirate,Surface,Any,0,0
+Pirate Window + Curtains,Pirate,Renovation,Any,0,0
+Pirate Dining Table,Pirate,Surface,Communal Only,0,0
+Pirate Dining Chair,Pirate,Comfort,Communal Only,0,0
+Pirate Floor,Pirate,Renovation,Any,0,0
+Pirate Wallpaper,Pirate,Renovation,Any,0,0
+Pirate Mat,Pirate,Accessory,Any,0,0
+Pirate Couch,Pirate,Comfort,Any,0,0
+Pirate Arm Chair,Pirate,Comfort,Any,0,0
+Pirate Coffee Table,Pirate,Surface,Any,0,0
+Pirate Pot Plant,Pirate,Accessory,Any,0,0
+Enchanted Bed,Enchanted,Comfort,Bedroom Only,0,0
+Enchanted Bedside Table,Enchanted,Surface,Any,0,0
+Enchanted Window + Curtains,Enchanted,Renovation,Any,0,0
+Enchanted Dining Table,Enchanted,Surface,Communal Only,0,0
+Enchanted Dining Chair,Enchanted,Comfort,Communal Only,0,0
+Enchanted Floor,Enchanted,Renovation,Any,0,0
+Enchanted Wallpaper,Enchanted,Renovation,Any,0,0
+Enchanted Mat,Enchanted,Accessory,Any,0,0
+Enchanted Couch,Enchanted,Comfort,Any,0,0
+Enchanted Arm Chair,Enchanted,Comfort,Any,0,0
+Enchanted Coffee Table,Enchanted,Surface,Any,0,0
+Enchanted Swing Chair,Enchanted,Comfort,Any,0,0
+Enchanted Pot Plant,Enchanted,Accessory,Any,0,0
+Occult Bed,Occult,Comfort,Bedroom Only,0,0
+Occult Bedside Table,Occult,Surface,Any,0,0
+Occult Window + Curtains,Occult,Renovation,Any,0,0
+Occult Dining Table,Occult,Surface,Communal Only,0,0
+Occult Dining Chair,Occult,Comfort,Communal Only,0,0
+Occult Floor,Occult,Renovation,Any,0,0
+Occult Wallpaper,Occult,Renovation,Any,0,0
+Occult Mat,Occult,Accessory,Any,0,0
+Occult Couch,Occult,Comfort,Any,0,0
+Occult Arm Chair,Occult,Comfort,Any,0,0
+Occult Coffee Table,Occult,Surface,Any,0,0
+Occult Lamp Post,Occult,Accessory,Any,0,0
+Occult Flower Shrub,Occult,Accessory,Any,0,0
+Occult Floor Lamp,Occult,Accessory,Any,0,0
+Occult Tarot Table,Occult,Accessory,Any,0,0
+Occult Pot Plant,Occult,Accessory,Any,0,0
+Occult Bookshelf,Occult,Accessory,Any,0,0
+Occult Painting,Occult,Accessory,Any,0,0
+Occult Wall Candle,Occult,Accessory,Any,0,0
