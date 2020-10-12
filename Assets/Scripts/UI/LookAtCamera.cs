@@ -6,7 +6,7 @@ public class LookAtCamera : MonoBehaviour
 {
     private void Update()
     {
-        transform.LookAt(Camera.main.transform.position);
+        transform.LookAt(GameManager.instance.freeCamera.transform.position);
         transform.forward = -transform.forward;
     }
 }

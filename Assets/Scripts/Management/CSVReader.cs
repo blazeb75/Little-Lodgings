@@ -13,15 +13,54 @@ public static class CSVReader
 
 		foreach (string header in SplitCsvLine(lines[0]))
 		{
-			DataColumn column = new DataColumn(header.Replace("\r",""), typeof(string));
+			System.Type type;
+			if (header.Contains("Vector2[]"))
+            {
+				type = typeof(Vector2[]);
+            }
+			else if(header.Contains("Vector2"))
+
+			{
+				type = typeof(Vector2);
+
+			}
+			else if(header.Contains("Vector3"))
+
+			{
+				type = typeof(Vector3);
+
+			}
+			else
+            {
+				type = typeof(string);
+            }
+			DataColumn column = new DataColumn(header.Replace("\r",""), type);
 			table.Columns.Add(column);
 		}
 
 		foreach (string line in lines.Skip(1))
 		{
 			DataRow row = table.NewRow();
+			object[] elements = SplitCsvLine(line);
+			for(int i = 0; i < table.Columns.Count; i++)
+            {
+				if(table.Columns[i].DataType == typeof(Vector2))
+                {
+					string[] xy = ((string)elements[i]).Split(' ');
+					elements[i] = new Vector2(float.Parse(xy[0]), float.Parse(xy[1]));
+                }
+				else if(table.Columns[i].DataType == typeof(Vector3))
+                {
+					string[] xy = ((string)elements[i]).Split(' ');
+					elements[i] = new Vector3(float.Parse(xy[0]), float.Parse(xy[1]), float.Parse(xy[2]));
+                }
+				else if (table.Columns[i].DataType == typeof(Vector2[]))
+                {
+					//TODO
+                }
 
-			row.ItemArray = SplitCsvLine(line);
+			}
+			row.ItemArray = elements;
 			if (row.ItemArray[0].ToString() == "")
 			{
 				continue;
@@ -57,7 +96,7 @@ public static class CSVReader
 
 	//	return outputGrid;
 	//}
-	public static string[] SplitCsvLine(string line)
+	public static object[] SplitCsvLine(string line)
     {
 		return line.Split(',');
     }

@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using cakeslice;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,8 +10,9 @@ public class Decorator : MonoBehaviour
     public static Decorator instance;
 
     public UnityEvent OnFurnitureSelected;
-    public UnityEvent OnFurnitureDeselected;
+    public UnityEvent OnNoFurnitureSelected;
 
+    public Material selectionMaterial;
     public PlacementGrid targetGrid;
     private GameObject selectedObject;
     public GameObject selectedPrefab;
@@ -27,14 +30,28 @@ public class Decorator : MonoBehaviour
         get => selectedObject;
         set
         {
+            if(selectedObject != null)
+            {
+                Renderer r = selectedObject.GetComponentInChildren<Renderer>();
+                //r.material.color = Color.white;
+                //r.material.shader = Shader.Find("Standard");
+                Destroy(r.gameObject.GetComponent<Outline>());
+            }
+
             selectedObject = value;
             if(selectedObject == null)
             {
-                OnFurnitureDeselected.Invoke();
+                OnNoFurnitureSelected.Invoke();
             }
             else
             {
-                OnFurnitureSelected.Invoke();
+                OnFurnitureSelected.Invoke(); 
+                
+                Renderer r = selectedObject.GetComponentInChildren<Renderer>();
+                //r.materials = r.materials.Append(selectionMaterial).ToArray();
+                //r.material.color = Color.yellow;
+                //r.material.shader = Shader.Find("Outlined/UltimateOutlineShadows");
+                r.gameObject.AddComponent<Outline>();
             }
         }
     }

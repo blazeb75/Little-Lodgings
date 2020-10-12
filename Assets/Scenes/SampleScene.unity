@@ -1562,6 +1562,45 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1020052180}
   m_CullTransparentMesh: 0
+--- !u!1 &1038998807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1260079891948874995, guid: 62142459bd752484ca2c18b67f96c367,
+    type: 3}
+  m_PrefabInstance: {fileID: 8820841078060053285}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1038998811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038998807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78da3f00f3328541b4526c0b0b5ec5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineThickness: 1.25
+  lineIntensity: 0.5
+  fillAmount: 0.2
+  lineColor0: {r: 1, g: 0, b: 0, a: 1}
+  lineColor1: {r: 0, g: 1, b: 0, a: 1}
+  lineColor2: {r: 0, g: 0, b: 1, a: 1}
+  additiveRendering: 0
+  backfaceCulling: 1
+  fillColor: {r: 0, g: 0, b: 1, a: 1}
+  useFillColor: 0
+  cornerOutlines: 0
+  addLinesBetweenColors: 0
+  scaleWithScreenSize: 1
+  alphaCutoff: 0.5
+  flipY: 0
+  sourceCamera: {fileID: 0}
+  autoEnableOutlines: 0
+  outlineCamera: {fileID: 0}
+  outlineShaderMaterial: {fileID: 0}
+  renderTexture: {fileID: 0}
+  extraRenderTexture: {fileID: 0}
 --- !u!114 &1286082799 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8820841077043454922, guid: 62142459bd752484ca2c18b67f96c367,
@@ -2055,21 +2094,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  OnFurnitureDeselected:
+  OnNoFurnitureSelected:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1020052180}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  selectionMaterial: {fileID: 2100000, guid: 517b6a7df85720e4399378b643861e0e, type: 2}
   targetGrid: {fileID: 1286082799}
   selectedPrefab: {fileID: 0}
   selectedRotation: 0
