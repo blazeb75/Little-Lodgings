@@ -12,8 +12,12 @@ public class Decorator : MonoBehaviour
     public UnityEvent OnFurnitureSelected;
     public UnityEvent OnNoFurnitureSelected;
 
+    public UnityEvent OnEnterEditMode;
+    public UnityEvent OnExitEditMode;
+
     public Material selectionMaterial;
     public PlacementGrid targetGrid;
+    [SerializeField]
     private GameObject selectedObject;
     public GameObject selectedPrefab;
     public int selectedRotation;
@@ -30,18 +34,31 @@ public class Decorator : MonoBehaviour
         get => selectedObject;
         set
         {
-            if(selectedObject != null)
+            if(selectedObject == value)
+            {
+                return;
+            }
+
+            if(selectedObject != null && selectedObject != value)
             {
                 Renderer r = selectedObject.GetComponentInChildren<Renderer>();
                 //r.material.color = Color.white;
                 //r.material.shader = Shader.Find("Standard");
                 Destroy(r.gameObject.GetComponent<Outline>());
+                Debug.Log("Removed outline");
+            }
+            if(value != null)
+            {
+                selectedRotation = Mathf.Abs((int)value.transform.rotation.y / 90);
             }
 
             selectedObject = value;
+
             if(selectedObject == null)
             {
                 OnNoFurnitureSelected.Invoke();
+                selectedRotation = 0;
+                targetGrid.SetGridActive(false);
             }
             else
             {
@@ -52,6 +69,7 @@ public class Decorator : MonoBehaviour
                 //r.material.color = Color.yellow;
                 //r.material.shader = Shader.Find("Outlined/UltimateOutlineShadows");
                 r.gameObject.AddComponent<Outline>();
+                targetGrid.SetGridActive(true);
             }
         }
     }
@@ -81,7 +99,7 @@ public class Decorator : MonoBehaviour
         }
         else
         {
-            if (mode == Mode.PlacingObject)
+            if (mode == Mode.PlacingObject && InputHandler.mode == ControlMode.DragDrop)
             {
                 CancelPlaceObject();
             }
@@ -97,39 +115,71 @@ public class Decorator : MonoBehaviour
 
     private void Update()
     {
-        if(targetGrid == null)
+        if (targetGrid == null)
         {
             return;
         }
-        if (mode == Mode.Idle)
+
+        if (InputHandler.mode == ControlMode.Selection)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (mode == Mode.Idle)
             {
-                Furniture hit = targetGrid.CursorFurniture();
-                if (hit != null)
+                if (Input.GetMouseButtonDown(0))
                 {
-                    SelectedObject = hit.gameObject;
-                    hit.Remove();
-                    ChangeMode(Mode.PlacingObject);
+                    Furniture hit = targetGrid.CursorFurniture(out bool hitUI);
+                    if (hit != null)
+                    {
+                        SelectedObject = hit.gameObject;
+                        hit.Remove();
+                        ChangeMode(Mode.PlacingObject);
+                    }
+                    else if (hit == null && !hitUI)
+                    {
+                        SelectedObject = null;
+                    }
                 }
             }
+            else if (mode == Mode.PlacingObject)
+            {
+                PlacingObject();
+            }
         }
-
-        else if (mode == Mode.PlacingObject)
+        else if (InputHandler.mode == ControlMode.DragDrop)
         {
-            PlacingObject();
+            if (mode == Mode.Idle)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Furniture hit = targetGrid.CursorFurniture(out bool hitUI);
+                    if (hit != null)
+                    {
+                        SelectedObject = hit.gameObject;
+                        hit.Remove();
+                        ChangeMode(Mode.PlacingObject);
+                    }
+                }
+            }
+
+            else if (mode == Mode.PlacingObject)
+            {
+                PlacingObject();
+            }
         }
     }
-
     void StartPlacingObject()
     {
         mode = Mode.PlacingObject;
-        targetGrid.SetGridActive(true);
+        //targetGrid.SetGridActive(true);
         if (SelectedObject == null)
         {
             SelectedObject = Instantiate(selectedPrefab);
         }
-        previousNode = SelectedObject.GetComponent<Furniture>().node;
+        else
+        {
+            Furniture f = SelectedObject.GetComponent<Furniture>();
+            f.Remove();
+            previousNode = f.node;
+        }
     }
 
     void PlacingObject()
@@ -149,16 +199,13 @@ public class Decorator : MonoBehaviour
         }
 
         furniture.SnapToNode(node);
-        SelectedObject.transform.rotation = node.transform.rotation;
+        //SelectedObject.transform.rotation = node.transform.rotation;
 
         if (Controls.Rotate())
         {
-            selectedRotation += 1;
-            if (selectedRotation == 4)
-                selectedRotation = 0;
+            Rotate();
         }
 
-        SelectedObject.transform.Rotate(0, 90 * selectedRotation, 0);
 
 
 #if UNITY_IOS || UNITY_ANDROID
@@ -192,29 +239,73 @@ public class Decorator : MonoBehaviour
     {
         Furniture furniture = SelectedObject.GetComponent<Furniture>();
         furniture.Place(node);
-        furniture.node = null;
-        SelectedObject = null;
+        //furniture.node = null;
+        if (InputHandler.mode == ControlMode.DragDrop)
+        {
+            SelectedObject = null;
+        }
         previousNode = null;
-        selectedRotation = 0;
         ChangeMode(Mode.Idle);
     }
 
     public void CancelPlaceObject()
     {
         mode = Mode.Idle;
-        targetGrid.SetGridActive(false);
+        //targetGrid.SetGridActive(false);
         if (SelectedObject != null)
         {
             Destroy(SelectedObject);
             SelectedObject = null;
         }
-        selectedRotation = 0;
     }
 
     public void Rotate()
     {
-        selectedRotation += 1;
-        if (selectedRotation == 4) selectedRotation = 0;
+        Rotate(false, true);
+    }
+    public bool Rotate(bool reverse, bool undoOnFail)
+    {
+        if (reverse)
+        {
+            selectedRotation -= 1;
+            if (selectedRotation == -1)
+                selectedRotation = 3;
+        }
+        else
+        {
+            selectedRotation += 1;
+            if (selectedRotation == 4)
+                selectedRotation = 0;
+        }
+
+        Furniture f = SelectedObject.GetComponent<Furniture>();
+        Node n = f.node;
+        f.Remove();
+
+        SelectedObject.transform.rotation = Quaternion.identity;
+        SelectedObject.transform.Rotate(0, 90 * selectedRotation, 0);
+
+        f.FlipDimensions();
+
+        if (!f.CanPlaceHere(n))
+        {
+            Debug.Log("Could not rotate " + transform.name + " - No room");
+            if (undoOnFail)
+            {
+                Rotate(!reverse, false);
+            }
+            else
+            {
+                Destroy(f.gameObject);
+                Debug.LogError("Could not undo rotation");
+            }
+            return false;
+        }
+        else
+        {
+            f.Place(n);
+            return true;
+        }
     }
 
     public bool CreatePlacingObject(GameObject obj)
@@ -290,6 +381,7 @@ public class Decorator : MonoBehaviour
                     if (newFurniture.CanPlaceHere(node))
                     {
                         newFurniture.Place(node);
+                        SelectedObject = newFurniture.gameObject;
                         return true;
                     }
                 }
@@ -304,7 +396,8 @@ public class Decorator : MonoBehaviour
                     node = grid.GetNode(x2, y2);
                     if (newFurniture.CanPlaceHere(node))
                     {
-                        newFurniture.Place(node);
+                        newFurniture.Place(node, true);
+                        SelectedObject = newFurniture.gameObject;
                         return true;
                     }
                 }
@@ -323,7 +416,8 @@ public class Decorator : MonoBehaviour
                     node = grid.GetNode(x1, y1);
                     if (newFurniture.CanPlaceHere(node))
                     {
-                        newFurniture.Place(node);
+                        newFurniture.Place(node, true);
+                        SelectedObject = newFurniture.gameObject;
                         return true;
                     }
                 }
@@ -339,6 +433,7 @@ public class Decorator : MonoBehaviour
                     if (newFurniture.CanPlaceHere(node))
                     {
                         newFurniture.Place(node);
+                        SelectedObject = newFurniture.gameObject;
                         return true;
                     }
                 }

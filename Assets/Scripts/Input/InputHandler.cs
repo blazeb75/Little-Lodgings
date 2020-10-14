@@ -2,9 +2,11 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+public enum ControlMode { DragDrop, Selection }
 
 public class InputHandler : MonoBehaviour
 {
+    public static ControlMode mode = ControlMode.Selection;
     static Vector2 lastMousePosition;
 
     static float priorPinch;

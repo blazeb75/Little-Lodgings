@@ -3,8 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class CameraControls : MonoBehaviour
-{
+{  
     [Header("Settings")]
     public float moveSpeed = 30f;
     public float zoomFactor = 1f;

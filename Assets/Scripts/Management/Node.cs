@@ -7,20 +7,31 @@ public class Node : MonoBehaviour
     public enum State { Open, Occupied, Reserved, Unused}
 
     [HideInInspector] public PlacementGrid parent;
-    public Furniture furniture;
+    private Furniture furniture;
     public List<Furniture> reservingFurniture;
     public new BoxCollider collider;
     public Vector2 position;
 
     [SerializeField] State state;
 
+    public Furniture Furniture
+    {
+        get => furniture;
+        set
+        {
+            furniture = value;
+            //if (value == null)
+            //    GetComponent<Renderer>().material.color = Color.white;
+        }
+    }
+
     public State GetState()
     {
         if (state == State.Unused)
             return state;
-        if (furniture != null && reservingFurniture.Count != 0)
+        if (Furniture != null && reservingFurniture.Count != 0)
             Debug.LogError("Node is both occupied and reserved.", this);
-        if (furniture != null)
+        if (Furniture != null)
             state = State.Occupied;
         else if (reservingFurniture.Count != 0)
             state = State.Reserved;
@@ -50,6 +61,7 @@ public class Node : MonoBehaviour
 
     public void Occupy(Furniture furniture)
     {
-        this.furniture = furniture;
+        this.Furniture = furniture;
+        //GetComponent<Renderer>().material.color = Color.red;
     }
 }

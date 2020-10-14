@@ -80,7 +80,8 @@ public static class FurnitureDatabase
                 GameObject model = AssetDatabase.LoadAssetAtPath<GameObject>(modelPath);
                 if (model == null)
                 {
-                    Debug.LogWarning("Model not found at " + modelPath);
+                    //TODO add this back in 
+                    //Debug.LogWarning("Model not found at " + modelPath);
                 }
                 else
                 {
@@ -152,6 +153,7 @@ public static class FurnitureDatabase
         furniturePrefabs.Clear();
         List<string> failedPaths = new List<string>();
         AssetDatabase.DeleteAssets(new string[]{"Assets/Prefabs/Auto/Furniture"}, failedPaths);
+        AssetDatabase.DeleteAssets(new string[]{"Assets/Prefabs/Auto/Materials"}, failedPaths);
         AssetDatabase.CreateFolder("Assets/Prefabs/Auto", "Furniture");
         AssetDatabase.CreateFolder("Assets/Prefabs/Auto", "Materials");
         AssetDatabase.CreateFolder("Assets/Prefabs/Auto/Furniture", "Thumbnails");

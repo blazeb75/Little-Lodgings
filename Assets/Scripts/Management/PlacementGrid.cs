@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class PlacementGrid : MonoBehaviour
 {
@@ -91,12 +92,21 @@ public class PlacementGrid : MonoBehaviour
         return null;
     }
 
-    public Furniture CursorFurniture()
+    public Furniture CursorFurniture(out bool hitUI)
     {
+        hitUI = false; 
+        if (EventSystem.current.IsPointerOverGameObject(-1))
+        {
+            hitUI = true;
+            Debug.Log("Clicked event object");
+            return null;
+        }
+
         Ray ray = GameManager.activeCam.ScreenPointToRay(Input.mousePosition);
         RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, LayerMask.GetMask("Furniture"), QueryTriggerInteraction.Ignore);
         foreach (RaycastHit hit in hits)
         {
+            
             if (hit.transform.parent == transform)
             {
                 return hit.transform.GetComponent<Furniture>();
@@ -144,12 +154,15 @@ public class PlacementGrid : MonoBehaviour
         Decorator.instance.targetGrid = this;
         GameManager.instance.SwitchCamera(editModeCamera);
         Decorator.instance.editModeCanvas.SetActive(true);
+        Decorator.instance.OnEnterEditMode.Invoke();
     }
     public void ExitEditMode()
     {
+        Decorator.instance.SelectedObject = null;
         Decorator.instance.targetGrid = null;
         GameManager.instance.SwitchCamera(GameManager.instance.freeCamera);
         Decorator.instance.editModeCanvas.SetActive(false);
+        Decorator.instance.OnExitEditMode.Invoke();
     }
 
     private void OnEnable()

@@ -26,7 +26,10 @@ public class FurnitureButton : MonoBehaviour
     {
         if (placeInstantly)
         {
-            decorator.TryCreateNearCenter(furniture);
+            if (!decorator.TryCreateNearCenter(furniture))
+            {
+                Debug.LogWarning("Could not place " + furniture.name);
+            }
         }
         else
         {

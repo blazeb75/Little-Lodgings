@@ -62,12 +62,23 @@ public class Furniture : MonoBehaviour
     }
     public List<Node> GetOverlappingNodes(Node node)
     {
+        float sizex, sizey;
+        if (true)//transform.rotation.y % 180 == 0)
+        {
+            sizex = size.x;
+            sizey = size.y;
+        }
+        else
+        {
+            sizex = size.y;
+            sizey = size.x;
+        }
         List<Node> nodes = new List<Node>();
         if(node == null)
         {
             return nodes;
         }
-        for (int i = 1; i <= size.x; i++)
+        for (int i = 1; i <= sizex; i++)
         {
             float x, y; 
             if (i % 2 == 1)
@@ -78,7 +89,7 @@ public class Furniture : MonoBehaviour
             {
                 x = node.position.x + i / 2f;
             }
-            for (int j = 1; j <= size.y; j++)
+            for (int j = 1; j <= sizey; j++)
             {
                 
                 if (j % 2 == 1)
@@ -123,7 +134,7 @@ public class Furniture : MonoBehaviour
         }
         foreach (Node n in GetOverlappingNodes(node))
         {
-            if (n == null || n.GetState() != Node.State.Open)
+            if (n == null || !(n.Furniture == null || n.Furniture == this))
             {
                 return false;
             }
@@ -145,7 +156,7 @@ public class Furniture : MonoBehaviour
         this.node = node;
     }
 
-    public void Place(Node node)
+    public void Place(Node node, bool calledByPlayer = false)
     {
         SnapToNode(node);
 
@@ -159,13 +170,18 @@ public class Furniture : MonoBehaviour
             n.reservingFurniture.Add(this);
             reservedNodes.Add(n);
         }
+
+        if (calledByPlayer)
+        {
+            Decorator.instance.SelectedObject = this.gameObject;
+        }
     }
 
     public void Remove()
     {
         foreach(Node n in occupiedNodes)
         {
-            n.furniture = null;
+            n.Furniture = null;
         }
         occupiedNodes.Clear();
         foreach(Node n in reservedNodes)
@@ -173,5 +189,11 @@ public class Furniture : MonoBehaviour
             n.reservingFurniture.Remove(this);
         }
         reservedNodes.Clear();
+    }
+
+    public void FlipDimensions()
+    {
+        size = new Vector2(size.y, size.x);
+        offset = new Vector3(offset.z, offset.y, offset.x);
     }
 }
