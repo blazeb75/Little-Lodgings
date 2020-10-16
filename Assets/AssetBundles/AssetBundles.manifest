@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 2865488147
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: furniture prefabs
+      Dependencies: {}

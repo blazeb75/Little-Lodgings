@@ -98,7 +98,7 @@ public class PlacementGrid : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject(-1))
         {
             hitUI = true;
-            Debug.Log("Clicked event object");
+            //Debug.Log("Clicked event object");
             return null;
         }
 
