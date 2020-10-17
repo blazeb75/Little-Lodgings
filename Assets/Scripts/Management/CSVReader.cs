@@ -14,61 +14,42 @@ public static class CSVReader
 		foreach (string header in SplitCsvLine(lines[0]))
 		{
 			System.Type type;
-			if (header.Contains("Vector2[]"))
-            {
-				type = typeof(Vector2[]);
-            }
-			else if(header.Contains("Vector2"))
-
+			if (header.Contains(".x")
+			|| header.Contains(".y")
+			|| header.Contains(".z")
+			|| header.Contains("Cost")
+			)
 			{
-				type = typeof(Vector2);
-
-			}
-			else if(header.Contains("Vector3"))
-
-			{
-				type = typeof(Vector3);
-
+				type = typeof(float);
 			}
 			else
-            {
+			{
 				type = typeof(string);
-            }
-			DataColumn column = new DataColumn(header.Replace("\r",""), type);
+			}
+			DataColumn column = new DataColumn(header.Replace("\r", ""), type);
 			table.Columns.Add(column);
 		}
-
 		foreach (string line in lines.Skip(1))
 		{
 			DataRow row = table.NewRow();
+			//string[] rawElements = SplitCsvLine(line);
 			object[] elements = SplitCsvLine(line);
-			for(int i = 0; i < table.Columns.Count; i++)
-            {
-				if(table.Columns[i].DataType == typeof(Vector2))
-                {
-					string[] xy = ((string)elements[i]).Split(' ');
-					elements[i] = new Vector2(float.Parse(xy[0]), float.Parse(xy[1]));
-                }
-				else if(table.Columns[i].DataType == typeof(Vector3))
-                {
-					string[] xy = ((string)elements[i]).Split(' ');
-					elements[i] = new Vector3(float.Parse(xy[0]), float.Parse(xy[1]), float.Parse(xy[2]));
-                }
-				else if (table.Columns[i].DataType == typeof(Vector2[]))
-                {
-					//TODO
-                }
-
-			}
-			row.ItemArray = elements;
-			if (row.ItemArray[0].ToString() == "")
+			if ((string)elements[0] == "" || (string)elements[1] != "TRUE")// || row.ItemArray[0].ToString() == "")
 			{
 				continue;
 			}
-			else
-			{
-				table.Rows.Add(row);
-			}
+            for (int i = 0; i < table.Columns.Count; i++)
+            {
+                if (table.Columns[i].DataType == typeof(float))
+                {
+                    if ((string)elements[i] == "")
+                    {
+                        elements[i] = "0";
+                    }
+                }
+            }
+            row.ItemArray = elements;
+			table.Rows.Add(row);
 		}
 		return table;
 	}
@@ -96,7 +77,7 @@ public static class CSVReader
 
 	//	return outputGrid;
 	//}
-	public static object[] SplitCsvLine(string line)
+	public static string[] SplitCsvLine(string line)
     {
 		return line.Split(',');
     }

@@ -8,7 +8,7 @@ public class Furniture : MonoBehaviour
         //Kinds of furniture
         Light, Table, Bed, Seat, Entertaining, Storage,
         //Aesthetic
-        Base, Royal, Pirate, Enchanted, Occult,
+        Basic, Royal, Pirate, Fairy, Occult,
         //Type
         Comfort, Surface, Renovation, Accessory,
         //Placement restrictions
@@ -28,6 +28,13 @@ public class Furniture : MonoBehaviour
     public List<Node> occupiedNodes;
     public List<Node> reservedNodes;
 
+    void OnValidate()
+    {
+        if(size == new Vector2(0, 0))
+        {
+            size = new Vector2(1, 1);
+        }
+    }
     public Vector3 origin
     {
         get => new Vector3(
@@ -63,16 +70,16 @@ public class Furniture : MonoBehaviour
     public List<Node> GetOverlappingNodes(Node node)
     {
         float sizex, sizey;
-        if (true)//transform.rotation.y % 180 == 0)
-        {
-            sizex = size.x;
-            sizey = size.y;
-        }
-        else
-        {
-            sizex = size.y;
-            sizey = size.x;
-        }
+        //if (true)//transform.rotation.y % 180 == 0)
+        //{
+        sizex = size.x;
+        sizey = size.y;
+        //}
+        //else
+        //{
+        //    sizex = size.y;
+        //    sizey = size.x;
+        //}
         List<Node> nodes = new List<Node>();
         if(node == null)
         {
