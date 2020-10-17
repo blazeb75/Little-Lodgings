@@ -28,6 +28,7 @@ public class Decorator : MonoBehaviour
     private Node previousNode;
 
     public GameObject editModeCanvas;
+    public GameObject catalogueCanvas;
 
     public GameObject SelectedObject
     {

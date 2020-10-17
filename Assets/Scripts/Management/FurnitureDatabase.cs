@@ -4,6 +4,7 @@ using System.Data;
 using UnityEditor;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 #if UNITY_EDITOR
 [Serializable]
@@ -26,7 +27,10 @@ public static class FurnitureDatabase
     [UnityEditor.MenuItem("Automation/Reload All Furniture")]
     public static void LoadAll()
     {
+        Debug.ClearDeveloperConsole();
+
         Camera screenshotCam = null;
+        List<string> thumbnailPaths = new List<string>();
         if (furnitureBase == null)
         {
             Refresh();
@@ -75,7 +79,6 @@ public static class FurnitureDatabase
                 GameObject model = AssetDatabase.LoadAssetAtPath<GameObject>(modelPath);
                 if (model == null)
                 {
-                    //TODO add this back in 
                     Debug.LogWarning("Model not found at " + modelPath);
                 }
                 else
@@ -133,7 +136,15 @@ public static class FurnitureDatabase
                     var Bytes = image.EncodeToPNG();
                     UnityEngine.Object.DestroyImmediate(image);
                     UnityEngine.Object.DestroyImmediate(screenshotModel);
-                    File.WriteAllBytes(UnityEngine.Application.dataPath + "/Prefabs/Auto/Furniture/Thumbnails/" + name + ".png", Bytes);
+                    string path = UnityEngine.Application.dataPath + "/Prefabs/Auto/Furniture/Thumbnails/" + name + ".png";
+                    string shortPath =  "Assets/Prefabs/Auto/Furniture/Thumbnails/" + name + ".png";
+                    File.WriteAllBytes(path, Bytes);
+
+                    thumbnailPaths.Add(shortPath);
+
+                    RenderTexture.active = null;
+                    screenshotCam.targetTexture = null;
+                    UnityEngine.Object.DestroyImmediate(rt);
                 }
 
                 string folderPath = "Assets/Prefabs/Auto/Furniture/" + row.Field<string>("Aesthetic");
@@ -153,15 +164,26 @@ public static class FurnitureDatabase
         finally
         {
             AssetDatabase.StopAssetEditing();
+            RenderTexture.active = null;
             GameObject.DestroyImmediate(screenshotCam.gameObject);
+        }
+        //Import sprites
+        AssetDatabase.Refresh();
+        foreach (string path in thumbnailPaths)
+        {
+            //Import thumbnails as sprites
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport);
+            TextureImporter importer = AssetImporter.GetAtPath(path) as TextureImporter;
+            importer.textureType = TextureImporterType.Sprite;
+            AssetDatabase.WriteImportSettingsIfDirty(path);
         }
 
         //Build asset bundle
         AssetBundleBuild buildMap = new AssetBundleBuild();
-        buildMap.assetNames = furniturePaths.ToArray();
+        buildMap.assetNames = furniturePaths.Concat(thumbnailPaths).ToArray();
         buildMap.assetBundleName = "Furniture Prefabs";
         BuildPipeline.BuildAssetBundles("Assets/AssetBundles", new AssetBundleBuild[]{ buildMap }, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
-
+        
         Debug.Log("Furniture refresh succeeded");
     }
 

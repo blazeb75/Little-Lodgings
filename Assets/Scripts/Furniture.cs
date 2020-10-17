@@ -8,7 +8,7 @@ public class Furniture : MonoBehaviour
         //Kinds of furniture
         Light, Table, Bed, Seat, Entertaining, Storage,
         //Aesthetic
-        Base, Royal, Pirate, Enchanted, Occult,
+        Basic, Royal, Pirate, Fairy, Occult,
         //Type
         Comfort, Surface, Renovation, Accessory,
         //Placement restrictions

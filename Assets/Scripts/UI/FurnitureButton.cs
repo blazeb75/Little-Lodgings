@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class FurnitureButton : MonoBehaviour
 {
     private bool placeInstantly = true;
-    public Decorator decorator;
+    private Decorator decorator;
     public GameObject furniture;
     Button button;
 
@@ -19,6 +19,7 @@ public class FurnitureButton : MonoBehaviour
         else
         {
             button.onClick.AddListener(MessageDecorator);
+            decorator = Decorator.instance;
         }
     }
 
@@ -35,5 +36,7 @@ public class FurnitureButton : MonoBehaviour
         {
             decorator.CreatePlacingObject(furniture);
         }
+        Decorator.instance.catalogueCanvas.SetActive(false);
+        Decorator.instance.editModeCanvas.SetActive(true);
     }
 }

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 236902069
+CRC: 2834767856
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d6178218bf9299034f84ca0ad0e17d86
+    Hash: 1c985f9c34bfc84d8e2b470b18fa0844
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 38cb15258a3cc6e2242615bffb94875e
+    Hash: 877724d60e3717e73efbfb211e16aef6
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -33,21 +33,69 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 7b8e549b379051941959c5fb1931ddff, type: 3}
 - Class: 115
   Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
 Assets:
-- Assets/Prefabs/Auto/Furniture/Pirate/Pirate Dining Table.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Fairy Mat.png
+- Assets/Prefabs/Auto/Furniture/Fairy/Fairy Couch.prefab
 - Assets/Prefabs/Auto/Furniture/Pirate/Pirate Coffee Table.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Occult Bed.png
 - Assets/Prefabs/Auto/Furniture/Occult/Occult Tarot Table.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Fairy Swing.png
+- Assets/Prefabs/Auto/Furniture/Royal/Royal Coffee Table.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Royal Arm Chair.png
+- Assets/Prefabs/Auto/Furniture/Pirate/Pirate Table.prefab
 - Assets/Prefabs/Auto/Furniture/Occult/Occult Bedside Table.prefab
+- Assets/Prefabs/Auto/Furniture/Fairy/Fairy Armchair.prefab
 - Assets/Prefabs/Auto/Furniture/Pirate/Pirate Couch.prefab
+- Assets/Prefabs/Auto/Furniture/Royal/Royal Arm Chair.prefab
+- Assets/Prefabs/Auto/Furniture/Fairy/Fairy Swing.prefab
 - Assets/Prefabs/Auto/Furniture/Royal/Royal Bedside Table.prefab
-- Assets/Prefabs/Auto/Furniture/Enchanted/Fairy Bedside.prefab
-- Assets/Prefabs/Auto/Furniture/Pirate/Pirate Arm Chair.prefab
+- Assets/Prefabs/Auto/Furniture/Royal/Royal Window.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Basic Couch.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Occult Bedside Table.png
+- Assets/Prefabs/Auto/Furniture/Royal/Double Royal Bed.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Pirate Coffee Table.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Single Royal Bed.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Royal Window.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Fairy Bedside Table.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Royal Mat.png
+- Assets/Prefabs/Auto/Furniture/Royal/Royal Mat.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Royal Coffee Table.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Basic Armchair.png
+- Assets/Prefabs/Auto/Furniture/Royal/Royal Couch.prefab
+- Assets/Prefabs/Auto/Furniture/Fairy/Fairy Window.prefab
+- Assets/Prefabs/Auto/Furniture/Basic/Basic Coffee Table.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Royal Couch.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Fairy Bath.png
 - Assets/Prefabs/Auto/Furniture/Royal/Royal Table.prefab
-- Assets/Prefabs/Auto/Furniture/Royal/Royal Bed Wide.prefab
-- Assets/Prefabs/Auto/Furniture/Enchanted/Fairy Bed.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Fairy Coffee Table.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Fairy Window.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Double Royal Bed.png
+- Assets/Prefabs/Auto/Furniture/Fairy/Fairy Bed.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Fairy Chair.png
+- Assets/Prefabs/Auto/Furniture/Fairy/Fairy Coffee Table.prefab
 - Assets/Prefabs/Auto/Furniture/Royal/Royal Chair.prefab
-- Assets/Prefabs/Auto/Furniture/Pirate/Pirate Bedside Table.prefab
-- Assets/Prefabs/Auto/Furniture/Pirate/Pirate Dining Chair.prefab
+- Assets/Prefabs/Auto/Furniture/Basic/Basic Armchair.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Pirate Couch.png
+- Assets/Prefabs/Auto/Furniture/Royal/Single Royal Bed.prefab
+- Assets/Prefabs/Auto/Furniture/Fairy/Fairy Table.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Royal Bedside Table.png
+- Assets/Prefabs/Auto/Furniture/Fairy/Fairy Mat.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Fairy Armchair.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Fairy Bed.png
+- Assets/Prefabs/Auto/Furniture/Fairy/Fairy Bath.prefab
+- Assets/Prefabs/Auto/Furniture/Fairy/Fairy Bedside Table.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Basic Coffee Table.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Fairy Couch.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Pirate Bed.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Fairy Table.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Royal Table.png
 - Assets/Prefabs/Auto/Furniture/Occult/Occult Bed.prefab
+- Assets/Prefabs/Auto/Furniture/Basic/Basic Couch.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Pirate Table.png
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Occult Tarot Table.png
 - Assets/Prefabs/Auto/Furniture/Pirate/Pirate Bed.prefab
+- Assets/Prefabs/Auto/Furniture/Thumbnails/Royal Chair.png
+- Assets/Prefabs/Auto/Furniture/Fairy/Fairy Chair.prefab
 Dependencies: []
