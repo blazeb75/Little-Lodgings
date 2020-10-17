@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 4331236357912543496}
   - component: {fileID: 7818618940231870005}
   - component: {fileID: 752223634054149430}
+  - component: {fileID: -1585704929228327324}
   m_Layer: 5
   m_Name: Furniture Button
   m_TagString: Untagged
@@ -289,3 +290,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   furniture: {fileID: 0}
+--- !u!114 &-1585704929228327324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6589202553998382998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: 200
+  m_MinHeight: 200
+  m_PreferredWidth: 400
+  m_PreferredHeight: 400
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
