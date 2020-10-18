@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 5787992997830141849}
   - component: {fileID: 5787992997830141850}
   - component: {fileID: 6118081035154244667}
+  - component: {fileID: -4671475490723720174}
   m_Layer: 8
   m_Name: Node
   m_TagString: Untagged
@@ -128,7 +129,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
-  furniture: {fileID: 0}
   reservingFurniture: []
   collider: {fileID: 0}
   position: {x: 0, y: 0}
@@ -187,3 +187,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &-4671475490723720174
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5787992997830141851}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

@@ -1,68 +1,68 @@
-Furniture Name,Implemented,Texture 1,Base Material 1,Texture 2,Base Material 2,Aesthetic,Type,Room,Size.x,Size.y,Offset.x,Offset.y,Offset.z,Money Cost,Prestige Unlock
-Base Bed,FALSE,,Furniture Mat Base,,,Basic,Comfort,Bedroom Only,,,,,,0,0
-Base Bedside Table,FALSE,,Furniture Mat Base,,,Basic,Surface,Any,,,,,,0,0
-Base Dresser,FALSE,,Furniture Mat Base,,,Basic,Surface,Any,,,,,,0,0
-Base Window With Curtains,FALSE,,Furniture Mat Base,,,Basic,Renovation,Any,,,,,,0,0
-Base Floor,FALSE,,Furniture Mat Base,,,Basic,Renovation,Any,,,,,,0,0
-Base Wallpaper,FALSE,,Furniture Mat Base,,,Basic,Renovation,Any,,,,,,0,0
-Base Dining Table,FALSE,,Furniture Mat Base,,,Basic,Surface,Any,,,,,,0,0
-Base Dining Chair,FALSE,,Furniture Mat Base,,,Basic,Comfort,Any,,,,,,0,0
-Base Counter,FALSE,,Furniture Mat Base,,,Basic,Surface,Communal Only,,,,,,0,0
-Base Mat,FALSE,,Furniture Mat Base,,,Basic,Accessory,Any,,,,,,0,0
-Base Floor Lamp,FALSE,,Furniture Mat Base,,,Basic,Accessory,Any,,,,,,0,0
-Basic Couch,TRUE,BasicCouchDiffuse,Furniture Mat Base,,,Basic,Comfort,Any,,,,,,0,0
-Basic Armchair,TRUE,BasicArmchairDiffuse,Furniture Mat Base,,,Basic,Comfort,Any,,,,,,0,0
-Basic Coffee Table,TRUE,BasicCoffeeTableDiffuse,Furniture Mat Base,,,Basic,Surface,Any,,,,,,0,0
-Single Royal Bed,TRUE,RoyalBedDiffuse,Furniture Mat Base,,,Royal,Comfort,Bedroom Only,,,,,,0,0
-Double Royal Bed,TRUE,RoyalBedDiffuse,Furniture Mat Base,,,Royal,Comfort,Bedroom Only,,,,,,0,0
-Royal Bedside Table,TRUE,RoyalBedsideTableDiffuse,Furniture Mat Base,,,Royal,Surface,Any,,,,,,0,0
-Royal Window,TRUE,RoyalWindowDiffuse,Furniture Mat Base,,,Royal,Renovation,Any,,,,,,0,0
-Royal Table,TRUE,RoyalTableDiffuse,Furniture Mat Base,,,Royal,Surface,Any,,,,,,0,0
-Royal Chair,TRUE,RoyalChairDiffuse,Furniture Mat Base,,,Royal,Comfort,Any,,,,,,0,0
-Royal Floor,FALSE,RoyalFloorDiffuse,Furniture Mat Base,,,Royal,Renovation,Any,,,,,,0,0
-Royal Wallpaper,FALSE,Royal Wall Diffuse,Furniture Mat Base,,,Royal,Renovation,Any,,,,,,0,0
-Royal Mat,TRUE,RoyalMatDif,Furniture Mat Base,,,Royal,Accessory,Any,,,,,,0,0
-Royal Couch,TRUE,RoyalCouchDiffuse,Furniture Mat Base,,,Royal,Comfort,Any,,,,,,0,0
-Royal Arm Chair,TRUE,RoyalArmchairDif,Furniture Mat Base,,,Royal,Comfort,Any,,,,,,0,0
-Royal Coffee Table,TRUE,RoyalCoffeeTableDiffuse,Furniture Mat Base,,,Royal,Surface,Any,,,,,,0,0
-Royal Pot Plant,FALSE,,Furniture Mat Base,,,Royal,Accessory,Any,,,,,,0,0
-Pirate Bed,TRUE,Pirate Bed_diff,Furniture Mat Base,,,Pirate,Comfort,Bedroom Only,,,,,,0,0
-Pirate Bedside Table,FALSE,Pirate Bedside table chair_diff,Furniture Mat Base,,,Pirate,Surface,Any,,,,,,0,0
-Pirate Window With Curtains,FALSE,,Furniture Mat Base,,,Pirate,Renovation,Any,,,,,,0,0
-Pirate Table,TRUE,Pirate Bedside table chair_diff,Furniture Mat Base,,,Pirate,Surface,Any,,,,,,0,0
-Pirate Chair,FALSE,Pirate Bedside table chair_diff,Furniture Mat Base,,,Pirate,Comfort,Any,,,,,,0,0
-Pirate Floor,FALSE,,Furniture Mat Base,,,Pirate,Renovation,Any,,,,,,0,0
-Pirate Wallpaper,FALSE,,Furniture Mat Base,,,Pirate,Renovation,Any,,,,,,0,0
-Pirate Mat,FALSE,,Furniture Mat Base,,,Pirate,Accessory,Any,,,,,,0,0
-Pirate Couch,TRUE,Pirate Couch Armchair Coffee Table_diff,Furniture Mat Base,,,Pirate,Comfort,Any,,,,,,0,0
-Pirate Arm Chair,FALSE,Pirate Couch Armchair Coffee Table_diff,Furniture Mat Base,,,Pirate,Comfort,Any,,,,,,0,0
-Pirate Coffee Table,TRUE,Pirate Couch Armchair Coffee Table_diff,Furniture Mat Base,,,Pirate,Surface,Any,,,,,,0,0
-Pirate Pot Plant,FALSE,,Furniture Mat Base,,,Pirate,Accessory,Any,,,,,,0,0
-Fairy Bed,TRUE,FairyBedDiffuse,Furniture Mat Base,,,Fairy,Comfort,Bedroom Only,,,,,,0,0
-Fairy Bedside Table,TRUE,FairyBedsideDiffuse,Furniture Mat Base,,,Fairy,Surface,Any,,,,,,0,0
-Fairy Window,TRUE,FairyWindowDiffuse,Furniture Mat Base,,,Fairy,Renovation,Any,,,,,,0,0
-Fairy Table,TRUE,FairyTblDiffuse,Furniture Mat Base,,,Fairy,Surface,Any,,,,,,0,0
-Fairy Chair,TRUE,FairyChairDiffuse,Furniture Mat Base,,,Fairy,Comfort,Any,,,,,,0,0
-Fairy Floor,FALSE,FairyFloorDiffuse,Furniture Mat Base,,,Fairy,Renovation,Any,,,,,,0,0
-Fairy Wallpaper,FALSE,FairyWall,Furniture Mat Base,,,Fairy,Renovation,Any,,,,,,0,0
-Fairy Mat,TRUE,FairyMatDiffuse,Furniture Mat Base,,,Fairy,Accessory,Any,,,,,,0,0
-Fairy Couch,TRUE,FairyCouchDiffuse,Furniture Mat Base,,,Fairy,Comfort,Any,,,,,,0,0
-Fairy Armchair,TRUE,FairyArmchairDiffuse,Furniture Mat Base,,,Fairy,Comfort,Any,,,,,,0,0
-Fairy Coffee Table,TRUE,FairyCoffeeTableDiffuse,Furniture Mat Base,,,Fairy,Surface,Any,,,,,,0,0
-Fairy Bath,TRUE,FairyBathDiffuse,Furniture Mat Base,,,Fairy,Accessory,Any,,,,,,0,0
-Fairy Swing,TRUE,FairySwingDiffuse,Furniture Mat Base,,,Fairy,Comfort,Any,,,,,,0,0
-Enchanted Pot Plant,FALSE,,Furniture Mat Base,,,Fairy,Accessory,Any,,,,,,0,0
-Occult Bed,TRUE,Occult Bed_diff,Furniture Mat Base,,,Occult,Comfort,Bedroom Only,,,,,,0,0
-Occult Bedside Table,TRUE,Occult Bedside_diff,Furniture Mat Base,,,Occult,Surface,Any,,,,,,0,0
-Occult Window With Curtains,FALSE,,Furniture Mat Base,,,Occult,Renovation,Any,,,,,,0,0
-Occult Dining Table,FALSE,Occult_Table Chair_diff,Furniture Mat Base,,,Occult,Surface,Any,,,,,,0,0
-Occult Dining Chair,FALSE,Occult_Table Chair_diff,Furniture Mat Base,,,Occult,Comfort,Any,,,,,,0,0
-Occult Floor,FALSE,,Furniture Mat Base,,,Occult,Renovation,Any,,,,,,0,0
-Occult Wallpaper,FALSE,,Furniture Mat Base,,,Occult,Renovation,Any,,,,,,0,0
-Occult Mat,FALSE,,Furniture Mat Base,,,Occult,Accessory,Any,,,,,,0,0
-Occult Couch,FALSE,,Furniture Mat Base,,,Occult,Comfort,Any,,,,,,0,0
-Occult Arm Chair,FALSE,,Furniture Mat Base,,,Occult,Comfort,Any,,,,,,0,0
-Occult Coffee Table,FALSE,,Furniture Mat Base,,,Occult,Surface,Any,,,,,,0,0
-Occult Floor Lamp,FALSE,,Furniture Mat Base,,,Occult,Accessory,Any,,,,,,0,0
-Occult Tarot Table,TRUE,Occult TarrotTable_diff,Furniture Mat Base,,,Occult,Accessory,Any,,,,,,0,0
-Occult Pot Plant,FALSE,,Furniture Mat Base,,,Occult,Accessory,Any,,,,,,0,0
+Furniture Name,Implemented,Texture 1,Base Material 1,Texture 2,Base Material 2,Aesthetic,Type,Room,Size.x,Size.y,Offset.x,Offset.y,Offset.z,Money Cost,Prestige Unlock,Reserve 1.x,Reserve 1.y,Reserve 2.x,Reserve 2.y
+Base Bed,FALSE,,Furniture Mat Base,,,Basic,Comfort,Bedroom Only,2,3,,,,0,0,-1,0,2,0
+Base Bedside Table,FALSE,,Furniture Mat Base,,,Basic,Surface,Any,1,1,,,,0,0,,,,
+Base Dresser,FALSE,,Furniture Mat Base,,,Basic,Surface,Any,,,,,,0,0,,,,
+Base Window With Curtains,FALSE,,Furniture Mat Base,,,Basic,Renovation,Any,,,,,,0,0,,,,
+Base Floor,FALSE,,Furniture Mat Base,,,Basic,Renovation,Any,,,,,,0,0,,,,
+Base Wallpaper,FALSE,,Furniture Mat Base,,,Basic,Renovation,Any,,,,,,0,0,,,,
+Base Dining Table,FALSE,,Furniture Mat Base,,,Basic,Surface,Any,,,,,,0,0,,,,
+Base Dining Chair,FALSE,,Furniture Mat Base,,,Basic,Comfort,Any,,,,,,0,0,,,,
+Base Counter,FALSE,,Furniture Mat Base,,,Basic,Surface,Communal Only,,,,,,0,0,,,,
+Base Mat,FALSE,,Furniture Mat Base,,,Basic,Accessory,Any,,,,,,0,0,,,,
+Base Floor Lamp,FALSE,,Furniture Mat Base,,,Basic,Accessory,Any,,,,,,0,0,,,,
+Basic Couch,TRUE,BasicCouchDiffuse,Furniture Mat Base,,,Basic,Comfort,Any,,,,,,0,0,,,,
+Basic Armchair,TRUE,BasicArmchairDiffuse,Furniture Mat Base,,,Basic,Comfort,Any,,,,,,0,0,,,,
+Basic Coffee Table,TRUE,BasicCoffeeTableDiffuse,Furniture Mat Base,,,Basic,Surface,Any,,,,,,0,0,,,,
+Single Royal Bed,TRUE,RoyalBedDiffuse,Furniture Mat Base,,,Royal,Comfort,Bedroom Only,2,3,,,,0,0,-1,0,2,0
+Double Royal Bed,TRUE,RoyalBedDiffuse,Furniture Mat Base,,,Royal,Comfort,Bedroom Only,4,3,,,,0,0,,,,
+Royal Bedside Table,TRUE,RoyalBedsideTableDiffuse,Furniture Mat Base,,,Royal,Surface,Any,,,,,,0,0,,,,
+Royal Window,TRUE,RoyalWindowDiffuse,Furniture Mat Base,,,Royal,Renovation,Any,,,,,,0,0,,,,
+Royal Table,TRUE,RoyalTableDiffuse,Furniture Mat Base,,,Royal,Surface,Any,,,,,,0,0,,,,
+Royal Chair,TRUE,RoyalChairDiffuse,Furniture Mat Base,,,Royal,Comfort,Any,,,,,,0,0,,,,
+Royal Floor,FALSE,RoyalFloorDiffuse,Furniture Mat Base,,,Royal,Renovation,Any,,,,,,0,0,,,,
+Royal Wallpaper,FALSE,Royal Wall Diffuse,Furniture Mat Base,,,Royal,Renovation,Any,,,,,,0,0,,,,
+Royal Mat,TRUE,RoyalMatDif,Furniture Mat Base,,,Royal,Accessory,Any,,,,,,0,0,,,,
+Royal Couch,TRUE,RoyalCouchDiffuse,Furniture Mat Base,,,Royal,Comfort,Any,,,,,,0,0,,,,
+Royal Arm Chair,TRUE,RoyalArmchairDif,Furniture Mat Base,,,Royal,Comfort,Any,,,,,,0,0,,,,
+Royal Coffee Table,TRUE,RoyalCoffeeTableDiffuse,Furniture Mat Base,,,Royal,Surface,Any,,,,,,0,0,,,,
+Royal Pot Plant,FALSE,,Furniture Mat Base,,,Royal,Accessory,Any,,,,,,0,0,,,,
+Pirate Bed,TRUE,Pirate Bed_diff,Furniture Mat Base,,,Pirate,Comfort,Bedroom Only,2,3,,,,0,0,,,,
+Pirate Bedside Table,FALSE,Pirate Bedside table chair_diff,Furniture Mat Base,,,Pirate,Surface,Any,,,,,,0,0,,,,
+Pirate Window With Curtains,FALSE,,Furniture Mat Base,,,Pirate,Renovation,Any,,,,,,0,0,,,,
+Pirate Table,TRUE,Pirate Bedside table chair_diff,Furniture Mat Base,,,Pirate,Surface,Any,,,,,,0,0,,,,
+Pirate Chair,FALSE,Pirate Bedside table chair_diff,Furniture Mat Base,,,Pirate,Comfort,Any,,,,,,0,0,,,,
+Pirate Floor,FALSE,,Furniture Mat Base,,,Pirate,Renovation,Any,,,,,,0,0,,,,
+Pirate Wallpaper,FALSE,,Furniture Mat Base,,,Pirate,Renovation,Any,,,,,,0,0,,,,
+Pirate Mat,FALSE,,Furniture Mat Base,,,Pirate,Accessory,Any,,,,,,0,0,,,,
+Pirate Couch,TRUE,Pirate Couch Armchair Coffee Table_diff,Furniture Mat Base,,,Pirate,Comfort,Any,,,,,,0,0,,,,
+Pirate Arm Chair,FALSE,Pirate Couch Armchair Coffee Table_diff,Furniture Mat Base,,,Pirate,Comfort,Any,,,,,,0,0,,,,
+Pirate Coffee Table,TRUE,Pirate Couch Armchair Coffee Table_diff,Furniture Mat Base,,,Pirate,Surface,Any,,,,,,0,0,,,,
+Pirate Pot Plant,FALSE,,Furniture Mat Base,,,Pirate,Accessory,Any,,,,,,0,0,,,,
+Fairy Bed,TRUE,FairyBedDiffuse,Furniture Mat Base,,,Fairy,Comfort,Bedroom Only,2,3,,,,0,0,-1,0,2,0
+Fairy Bedside Table,TRUE,FairyBedsideDiffuse,Furniture Mat Base,,,Fairy,Surface,Any,,,,,,0,0,,,,
+Fairy Window,TRUE,FairyWindowDiffuse,Furniture Mat Base,,,Fairy,Renovation,Any,,,,,,0,0,,,,
+Fairy Table,TRUE,FairyTblDiffuse,Furniture Mat Base,,,Fairy,Surface,Any,,,,,,0,0,,,,
+Fairy Chair,TRUE,FairyChairDiffuse,Furniture Mat Base,,,Fairy,Comfort,Any,,,,,,0,0,,,,
+Fairy Floor,FALSE,FairyFloorDiffuse,Furniture Mat Base,,,Fairy,Renovation,Any,,,,,,0,0,,,,
+Fairy Wallpaper,FALSE,FairyWall,Furniture Mat Base,,,Fairy,Renovation,Any,,,,,,0,0,,,,
+Fairy Mat,TRUE,FairyMatDiffuse,Furniture Mat Base,,,Fairy,Accessory,Any,,,,,,0,0,,,,
+Fairy Couch,TRUE,FairyCouchDiffuse,Furniture Mat Base,,,Fairy,Comfort,Any,,,,,,0,0,,,,
+Fairy Armchair,TRUE,FairyArmchairDiffuse,Furniture Mat Base,,,Fairy,Comfort,Any,,,,,,0,0,,,,
+Fairy Coffee Table,TRUE,FairyCoffeeTableDiffuse,Furniture Mat Base,,,Fairy,Surface,Any,,,,,,0,0,,,,
+Fairy Bath,TRUE,FairyBathDiffuse,Furniture Mat Base,,,Fairy,Accessory,Any,,,,,,0,0,,,,
+Fairy Swing,TRUE,FairySwingDiffuse,Furniture Mat Base,,,Fairy,Comfort,Any,,,,,,0,0,,,,
+Enchanted Pot Plant,FALSE,,Furniture Mat Base,,,Fairy,Accessory,Any,,,,,,0,0,,,,
+Occult Bed,TRUE,Occult Bed_diff,Furniture Mat Base,,,Occult,Comfort,Bedroom Only,2,3,,,,0,0,,,,
+Occult Bedside Table,TRUE,Occult Bedside_diff,Furniture Mat Base,,,Occult,Surface,Any,,,,,,0,0,,,,
+Occult Window With Curtains,FALSE,,Furniture Mat Base,,,Occult,Renovation,Any,,,,,,0,0,,,,
+Occult Dining Table,FALSE,Occult_Table Chair_diff,Furniture Mat Base,,,Occult,Surface,Any,,,,,,0,0,,,,
+Occult Dining Chair,FALSE,Occult_Table Chair_diff,Furniture Mat Base,,,Occult,Comfort,Any,,,,,,0,0,,,,
+Occult Floor,FALSE,,Furniture Mat Base,,,Occult,Renovation,Any,,,,,,0,0,,,,
+Occult Wallpaper,FALSE,,Furniture Mat Base,,,Occult,Renovation,Any,,,,,,0,0,,,,
+Occult Mat,FALSE,,Furniture Mat Base,,,Occult,Accessory,Any,,,,,,0,0,,,,
+Occult Couch,FALSE,,Furniture Mat Base,,,Occult,Comfort,Any,,,,,,0,0,,,,
+Occult Arm Chair,FALSE,,Furniture Mat Base,,,Occult,Comfort,Any,,,,,,0,0,,,,
+Occult Coffee Table,FALSE,,Furniture Mat Base,,,Occult,Surface,Any,,,,,,0,0,,,,
+Occult Floor Lamp,FALSE,,Furniture Mat Base,,,Occult,Accessory,Any,,,,,,0,0,,,,
+Occult Tarot Table,TRUE,Occult TarrotTable_diff,Furniture Mat Base,,,Occult,Accessory,Any,,,,,,0,0,,,,
+Occult Pot Plant,FALSE,,Furniture Mat Base,,,Occult,Accessory,Any,,,,,,0,0,,,,

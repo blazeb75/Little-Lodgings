@@ -40,7 +40,7 @@ public static class FurnitureDatabase
             AssetDatabase.StartAssetEditing();
             screenshotCam = ((GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Back-end/Screenshot Camera.prefab"))).GetComponent<Camera>();
             //screenshotCam.transform.position = new Vector3(995, 1005.67f, 995);
-            
+
             Clear();
             TextAsset csvFile = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Data/furniture.csv");
             //string[][] table = CSVReader.SplitCsvGrid(csvFile.text);
@@ -52,11 +52,26 @@ public static class FurnitureDatabase
                 string name = row.Field<string>("Furniture Name");
                 dummyInstance.name = name;
 
+                //Populate furniture component data
                 Furniture furniture = dummyInstance.GetComponent<Furniture>();
                 furniture.cost = row.Field<float>("Money Cost");
                 furniture.unlockCost = float.Parse(row.Field<string>("Prestige Unlock"));
                 furniture.size = new Vector2(row.Field<float>("Size.x"), row.Field<float>("Size.y"));
                 furniture.offset = new Vector3(row.Field<float>("Offset.x"), row.Field<float>("Offset.y"), row.Field<float>("Offset.z"));
+                //Reserve nodes
+                furniture.reservations = new Vector2[] { };
+                for (int i = 1; i <= 2; i++)
+                {
+                    float x = row.Field<float>("Reserve " + i.ToString() + ".x");
+                    float y = row.Field<float>("Reserve " + i.ToString() + ".y");
+                    if (x == 0 && y == 0)
+                    {
+                        break;
+                    }
+
+                    Vector2 xy = new Vector2(x, y);
+                    furniture.reservations = furniture.reservations.Append(xy).ToArray();
+                }
 
                 string[] tagColumns = { "Aesthetic", "Type"/*, "Room" */};
                 List<Furniture.Tags> tags = new List<Furniture.Tags>();
@@ -112,7 +127,7 @@ public static class FurnitureDatabase
                                 Debug.LogError("Texture not found at " + texturePath);
                             }
                             mat.SetTexture("_MainTex", texture);
-                            string matAssetPath = "Assets/Prefabs/Auto/Materials/" + mat.name + ".mat";
+                            string matAssetPath = "Assets/Resources/Auto/Materials/" + mat.name + ".mat";
                             AssetDatabase.CreateAsset(mat, matAssetPath);
                             Material matAsset = AssetDatabase.LoadAssetAtPath<Material>(matAssetPath);
                             mats.Add(matAsset);
@@ -136,8 +151,8 @@ public static class FurnitureDatabase
                     var Bytes = image.EncodeToPNG();
                     UnityEngine.Object.DestroyImmediate(image);
                     UnityEngine.Object.DestroyImmediate(screenshotModel);
-                    string path = UnityEngine.Application.dataPath + "/Prefabs/Auto/Furniture/Thumbnails/" + name + ".png";
-                    string shortPath =  "Assets/Prefabs/Auto/Furniture/Thumbnails/" + name + ".png";
+                    string path = UnityEngine.Application.dataPath + "/Resources/Auto/Furniture/Thumbnails/" + name + ".png";
+                    string shortPath = "Assets/Resources/Auto/Furniture/Thumbnails/" + name + ".png";
                     File.WriteAllBytes(path, Bytes);
 
                     thumbnailPaths.Add(shortPath);
@@ -146,14 +161,15 @@ public static class FurnitureDatabase
                     screenshotCam.targetTexture = null;
                     UnityEngine.Object.DestroyImmediate(rt);
                 }
-
-                string folderPath = "Assets/Prefabs/Auto/Furniture/" + row.Field<string>("Aesthetic");
+                //Save prefab
+                string folderPath = "Assets/Resources/Auto/Furniture/" + row.Field<string>("Aesthetic");
                 if (!Directory.Exists(folderPath))//!AssetDatabase.IsValidFolder(folderPath))
                 {
-                    AssetDatabase.CreateFolder("Assets/Prefabs/Auto/Furniture", row.Field<string>("Aesthetic"));
+                    AssetDatabase.CreateFolder("Assets/Resources/Auto/Furniture", row.Field<string>("Aesthetic"));
                     AssetDatabase.Refresh();
                 }
-                string completePath = folderPath + "/" + name + ".prefab";
+                string completePath = $"{folderPath}/{name}.prefab";
+                Debug.Log(completePath);
                 GameObject newPrefab = PrefabUtility.SaveAsPrefabAsset(dummyInstance, completePath);
                 GameObject.DestroyImmediate(dummyInstance);
 
@@ -179,11 +195,11 @@ public static class FurnitureDatabase
         }
 
         //Build asset bundle
-        AssetBundleBuild buildMap = new AssetBundleBuild();
-        buildMap.assetNames = furniturePaths.Concat(thumbnailPaths).ToArray();
-        buildMap.assetBundleName = "Furniture Prefabs";
-        BuildPipeline.BuildAssetBundles("Assets/AssetBundles", new AssetBundleBuild[]{ buildMap }, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
-        
+        //AssetBundleBuild buildMap = new AssetBundleBuild();
+        //buildMap.assetNames = furniturePaths.Concat(thumbnailPaths).ToArray();
+        //buildMap.assetBundleName = "Furniture Prefabs";
+        //BuildPipeline.BuildAssetBundles("Assets/AssetBundles", new AssetBundleBuild[]{ buildMap }, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
+
         Debug.Log("Furniture refresh succeeded");
     }
 
@@ -192,11 +208,11 @@ public static class FurnitureDatabase
         furniturePrefabs.Clear();
         furniturePaths.Clear();
         List<string> failedPaths = new List<string>();
-        AssetDatabase.DeleteAssets(new string[]{"Assets/Prefabs/Auto/Furniture"}, failedPaths);
-        AssetDatabase.DeleteAssets(new string[]{"Assets/Prefabs/Auto/Materials"}, failedPaths);
-        AssetDatabase.CreateFolder("Assets/Prefabs/Auto", "Furniture");
-        AssetDatabase.CreateFolder("Assets/Prefabs/Auto", "Materials");
-        AssetDatabase.CreateFolder("Assets/Prefabs/Auto/Furniture", "Thumbnails");
+        AssetDatabase.DeleteAssets(new string[] { "Assets/Resources/Auto/Furniture" }, failedPaths);
+        AssetDatabase.DeleteAssets(new string[] { "Assets/Resources/Auto/Materials" }, failedPaths);
+        AssetDatabase.CreateFolder("Assets/Resources/Auto", "Furniture");
+        AssetDatabase.CreateFolder("Assets/Resources/Auto", "Materials");
+        AssetDatabase.CreateFolder("Assets/Resources/Auto/Furniture", "Thumbnails");
         AssetDatabase.Refresh();
     }
 

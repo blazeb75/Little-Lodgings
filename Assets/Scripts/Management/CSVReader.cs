@@ -33,7 +33,7 @@ public static class CSVReader
 		{
 			DataRow row = table.NewRow();
 			//string[] rawElements = SplitCsvLine(line);
-			object[] elements = SplitCsvLine(line);
+			object[] elements = SplitCsvLine(line.Replace("\r", ""));
 			if ((string)elements[0] == "" || (string)elements[1] != "TRUE")// || row.ItemArray[0].ToString() == "")
 			{
 				continue;
@@ -45,6 +45,10 @@ public static class CSVReader
                     if ((string)elements[i] == "")
                     {
                         elements[i] = "0";
+                    }
+                    else
+                    {
+						(elements[i] as string).Replace("-", "-");
                     }
                 }
             }

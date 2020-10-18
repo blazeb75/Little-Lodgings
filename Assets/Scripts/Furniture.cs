@@ -28,6 +28,11 @@ public class Furniture : MonoBehaviour
     public List<Node> occupiedNodes;
     public List<Node> reservedNodes;
 
+    //public void Interact(out float completionTime)
+    //{
+
+    //}
+
     void OnValidate()
     {
         if(size == new Vector2(0, 0))
@@ -123,7 +128,11 @@ public class Furniture : MonoBehaviour
         List<Node> nodes = new List<Node>();
         foreach (Vector2 res in reservations)
         {
-            nodes.Add(grid.GetNode(node.position + res));
+            Node n = grid.GetNode(node.position + res);
+            if (n != null)
+            {
+                nodes.Add(n);
+            }
         }
         return nodes;
     }
@@ -146,12 +155,18 @@ public class Furniture : MonoBehaviour
                 return false;
             }
         }
+        bool anyReserveNode = false;
         foreach (Node n in GetReserveNodes(node))
         {
-            if (n == null || !(n.GetState() == Node.State.Open || n.GetState() == Node.State.Reserved))
+            if (n != null || n.GetState() == Node.State.Open || n.GetState() == Node.State.Reserved)
             {
-                return false;
+                anyReserveNode = true;
+                break;
             }
+        }
+        if (!anyReserveNode && reservations.Length != 0)
+        {
+            return false;
         }
         return true;
     }

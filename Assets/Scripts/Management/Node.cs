@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Node : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Node : MonoBehaviour
     public new BoxCollider collider;
     public Vector2 position;
 
+    private NavMeshObstacle nmo;
+
     [SerializeField] State state;
 
     public Furniture Furniture
@@ -20,6 +23,14 @@ public class Node : MonoBehaviour
         set
         {
             furniture = value;
+            if(furniture == null)
+            {
+                nmo.enabled = false;
+            }
+            else
+            {
+                nmo.enabled = true;
+            }
             //if (value == null)
             //    GetComponent<Renderer>().material.color = Color.white;
         }
@@ -52,6 +63,7 @@ public class Node : MonoBehaviour
         }
 
         collider = GetComponent<BoxCollider>();
+        nmo = GetComponent<NavMeshObstacle>();
     }
 
     private void Start()
