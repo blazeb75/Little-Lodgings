@@ -89,6 +89,15 @@ public static class FurnitureDatabase
                 }
                 furniture.tags = tags.ToArray();
 
+                //Ensure folder exists
+                string folderPath = $"Assets/Resources/Auto/Furniture/{row.Field<string>("Aesthetic")}";
+                if (!Directory.Exists(folderPath))
+                {
+                    AssetDatabase.CreateFolder("Assets/Resources/Auto/Furniture", row.Field<string>("Aesthetic"));
+                    AssetDatabase.CreateFolder($"Assets/Resources/Auto/Furniture/{row.Field<string>("Aesthetic")}", "Thumbnails");
+                    AssetDatabase.Refresh();
+                }
+
                 //Add model & texture
                 string modelPath = "Assets/Models/Furniture/" + row.Field<string>("Aesthetic") + "/" + name/*.Replace(" ", string.Empty)*/+ ".fbx";
                 GameObject model = AssetDatabase.LoadAssetAtPath<GameObject>(modelPath);
@@ -105,13 +114,13 @@ public static class FurnitureDatabase
                     modelInstance.layer = LayerMask.NameToLayer("Furniture");
                     for (int i = 1; i <= 2; i++)
                     {
-                        if (row.Field<string>("Base Material " + i.ToString()) == "")
+                        if (row.Field<string>($"Base Material {i}") == "")
                         {
                             continue;
                         }
                         else
                         {
-                            string matBasePath = "Assets/Models/Materials/" + row.Field<string>("Base Material " + i) + ".mat";
+                            string matBasePath = $"Assets/Models/Materials/{row.Field<string>("Base Material " + i)}.mat";
                             Material matBase = AssetDatabase.LoadAssetAtPath<Material>(matBasePath);
                             if (matBase == null)
                             {
@@ -120,14 +129,14 @@ public static class FurnitureDatabase
                             }
                             Material mat = new Material(matBase);
                             mat.name = name + i;
-                            string texturePath = "Assets/Models/Furniture/" + row.Field<string>("Aesthetic") + "/Materials and Textures/" + row.Field<string>("Texture " + i) + ".png";
+                            string texturePath = $"Assets/Models/Furniture/{row.Field<string>("Aesthetic")}/Materials and Textures/{row.Field<string>("Texture " + i)}.png";
                             Texture texture = AssetDatabase.LoadAssetAtPath<Texture>(texturePath);
                             if (texture == null)
                             {
                                 Debug.LogError("Texture not found at " + texturePath);
                             }
                             mat.SetTexture("_MainTex", texture);
-                            string matAssetPath = "Assets/Resources/Auto/Materials/" + mat.name + ".mat";
+                            string matAssetPath = $"Assets/Resources/Auto/Materials/{mat.name}.mat";
                             AssetDatabase.CreateAsset(mat, matAssetPath);
                             Material matAsset = AssetDatabase.LoadAssetAtPath<Material>(matAssetPath);
                             mats.Add(matAsset);
@@ -151,8 +160,14 @@ public static class FurnitureDatabase
                     var Bytes = image.EncodeToPNG();
                     UnityEngine.Object.DestroyImmediate(image);
                     UnityEngine.Object.DestroyImmediate(screenshotModel);
-                    string path = UnityEngine.Application.dataPath + "/Resources/Auto/Furniture/Thumbnails/" + name + ".png";
-                    string shortPath = "Assets/Resources/Auto/Furniture/Thumbnails/" + name + ".png";
+                    string path = $"{Application.dataPath}/Resources/Auto/Furniture/{row.Field<string>("Aesthetic")}/Thumbnails/{name}.png";
+                    string shortPath = $"Assets/Resources/Auto/Furniture/{row.Field<string>("Aesthetic")}/Thumbnails/{name}.png"; 
+                    string fPath = $"Assets/Resources/Auto/Furniture/{row.Field<string>("Aesthetic")}/Thumbnails/";
+                    if (!Directory.Exists(fPath + row.Field<string>("Aesthetic")))
+                    {
+                        AssetDatabase.CreateFolder(fPath, row.Field<string>("Aesthetic"));
+                        AssetDatabase.Refresh();
+                    }
                     File.WriteAllBytes(path, Bytes);
 
                     thumbnailPaths.Add(shortPath);
@@ -161,15 +176,8 @@ public static class FurnitureDatabase
                     screenshotCam.targetTexture = null;
                     UnityEngine.Object.DestroyImmediate(rt);
                 }
-                //Save prefab
-                string folderPath = "Assets/Resources/Auto/Furniture/" + row.Field<string>("Aesthetic");
-                if (!Directory.Exists(folderPath))//!AssetDatabase.IsValidFolder(folderPath))
-                {
-                    AssetDatabase.CreateFolder("Assets/Resources/Auto/Furniture", row.Field<string>("Aesthetic"));
-                    AssetDatabase.Refresh();
-                }
+                //Save prefab                
                 string completePath = $"{folderPath}/{name}.prefab";
-                Debug.Log(completePath);
                 GameObject newPrefab = PrefabUtility.SaveAsPrefabAsset(dummyInstance, completePath);
                 GameObject.DestroyImmediate(dummyInstance);
 

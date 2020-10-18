@@ -13,14 +13,16 @@ public class FurnitureCategory : MonoBehaviour
 
     private Transform content;
 
+    public GameObject[] prefabs;
+
     private string Path
     {
         get
         {
             if (pathOverride == "")
             {
-                //return "Assets/AssetBundles/" + label + ".unity3d";
-                return "Assets/AssetBundles/furniture prefabs";
+                return $"Auto/Furniture/{label}";
+                //return "Assets/AssetBundles/furniture prefabs";
             }
             else
             {
@@ -32,10 +34,13 @@ public class FurnitureCategory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AssetBundle bundle = AssetBundle.LoadFromFile(Path);
-        GameObject[] prefabs = bundle.LoadAllAssets<GameObject>().Where(x => x.name.Contains(label)).ToArray();
-        Texture2D[] thumbnails = bundle.LoadAllAssets<Texture2D>().Where(x => x.name.Contains(label)).ToArray();
-        bundle.Unload(false);
+        //AssetBundle bundle = AssetBundle.LoadFromFile(Path);
+        //GameObject[] prefabs = bundle.LoadAllAssets<GameObject>().Where(x => x.name.Contains(label)).ToArray();
+        //Texture2D[] thumbnails = bundle.LoadAllAssets<Texture2D>().Where(x => x.name.Contains(label)).ToArray();
+        //bundle.Unload(false);
+        prefabs = Resources.LoadAll<GameObject>(Path);
+        Texture2D[] thumbnails = Resources.LoadAll<Texture2D>(Path);
+
         content = transform.Find("Viewport").Find("Content");
         int i;
         for (i = 0; i < prefabs.Length; i++)
@@ -44,7 +49,7 @@ public class FurnitureCategory : MonoBehaviour
             Texture2D thumbnail = thumbnails.Where(x => x.name == prefabs[i].name).First();
             float offset = -500 + (500 * i);
             CreateFurnitureButton(prefab, Sprite.Create(thumbnail, new Rect(0, 0, thumbnail.width, thumbnail.height), new Vector2(0.5f, 0.5f)), offset);
-            
+
         }
         (content.transform as RectTransform).sizeDelta = new Vector2(i * 500, 400);
     }
@@ -59,6 +64,6 @@ public class FurnitureCategory : MonoBehaviour
         (button.transform as RectTransform).anchoredPosition = new Vector2(offset, 0);
         button.name = furniture.name;
         button.GetComponentInChildren<Text>().text = button.name;
-        
+
     }
 }
