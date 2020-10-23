@@ -95,7 +95,7 @@ public class PlacementGrid : MonoBehaviour
     public Furniture CursorFurniture(out bool hitUI)
     {
         hitUI = false; 
-        if (EventSystem.current.IsPointerOverGameObject(-1))
+        if (InputHandler.IsPointerOverUI())
         {
             hitUI = true;
             //Debug.Log("Clicked event object");
