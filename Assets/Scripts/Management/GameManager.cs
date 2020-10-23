@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public Camera freeCamera;
 
     [HideInInspector] public static Camera activeCam;
+    public static bool speedMode;
 
     private void Awake()
     {
@@ -23,7 +24,6 @@ public class GameManager : MonoBehaviour
             Destroy(this);
             Debug.LogWarning("Duplicate GameManager found. Deleting...", this.gameObject);
         }
-
     }
 
     private void Start()
@@ -40,5 +40,4 @@ public class GameManager : MonoBehaviour
         newCamera.gameObject.SetActive(true);
         activeCam = newCamera;
     }
-
 }
