@@ -129,8 +129,8 @@ public class PlacementGrid : MonoBehaviour
         {
             return grid[x, y];
         }
-        catch (System.IndexOutOfRangeException e)
-        {
+        catch (System.IndexOutOfRangeException)
+        {            
             return null;
         }
     }
