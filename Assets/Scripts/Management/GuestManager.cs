@@ -19,7 +19,7 @@ public class GuestManager : MonoBehaviour
             Debug.LogWarning("Duplicate GuestManager found. Deleting...", this.gameObject);
         }
     }
-
+    GameObject spawnPoint;
     public GameObject[] ChonkPrefabs;
 
     public List<GameObject> ChonkInstances;
@@ -28,15 +28,29 @@ public class GuestManager : MonoBehaviour
 
     public List<Room> rooms;
 
-    public void SpawnChonk(GameObject prefab)
+    public void BeginRandomVisit()
     {
+        GameObject chonk = SpawnChonk(RandomChonk());
+        Stay stay = GenerateStay(chonk.GetComponent<ChonkData>());
+        ChonkInstances.Add(chonk);
+        currentStays.Add(stay);
+    }
 
+    public GameObject SpawnChonk(GameObject prefab)
+    {
+        GameObject newObj = Instantiate(prefab, spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
+        return newObj;
     }
 
     public Stay GenerateStay(ChonkData chonk)
     {
-        Stay stay = new Stay();
-        stay.guestName = chonk.name;
+        Stay stay = new Stay
+        {
+            guestName = chonk.name,
+            roomID = RandomRoom().roomID,
+            checkInTime = DateTime.MaxValue,
+            checkOutTime = DateTime.MaxValue
+        };
         return stay;
     }
 
@@ -62,6 +76,12 @@ public class GuestManager : MonoBehaviour
         currentStays.Remove(stay);
         completedStays.Add(stay);
     }
+
+    public void CheckIn(Stay stay, TimeSpan duration)
+    {
+        stay.checkInTime = DateTime.Now;
+        stay.Duration = duration;
+    }
 }
 
 [Serializable]
@@ -71,5 +91,23 @@ public struct Stay
     public int roomID;
     public DateTime checkInTime;
     public DateTime checkOutTime;
+    public TimeSpan Duration 
+    { 
+        get
+        {
+            return checkOutTime - checkInTime;
+        }
+        set
+        {
+            checkOutTime = checkInTime + value;
+        }
+    }
+    public TimeSpan RemainingDuration 
+    { 
+        get
+        {
+            return checkOutTime - DateTime.Now;
+        } 
+    }
 }
 
