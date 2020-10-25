@@ -1,11 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4873091397208262349
+--- !u!1001 &5055625592755122683
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 912490911201381867}
+    m_TransformParent: {fileID: 3611284857774374591}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7fc95e9d497c4be448069129fe2e79d7,
         type: 3}
@@ -79,7 +79,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fc95e9d497c4be448069129fe2e79d7, type: 3}
---- !u!1001 &8542942681897793108
+--- !u!1001 &5204662314363995392
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -163,9 +163,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 929292e28157226408f82a8459fb704a, type: 3}
---- !u!4 &912490911201381867 stripped
+--- !u!4 &3611284857774374591 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8802127955882163135, guid: 929292e28157226408f82a8459fb704a,
     type: 3}
-  m_PrefabInstance: {fileID: 8542942681897793108}
+  m_PrefabInstance: {fileID: 5204662314363995392}
   m_PrefabAsset: {fileID: 0}
