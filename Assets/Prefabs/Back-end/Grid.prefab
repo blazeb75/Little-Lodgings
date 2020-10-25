@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 8820841077043454922}
-  height: 8
+  height: 6
 --- !u!1 &8820841077043454923
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,7 +470,7 @@ MonoBehaviour:
   nodePrefab: {fileID: 5787992997830141851, guid: a6938a4387dc8024e903239433940ec8,
     type: 3}
   interval: 1
-  size: {x: 0, y: 0}
+  size: {x: 8, y: 7}
   origin: {x: 0, y: 0}
   nodes: []
   furniture: []

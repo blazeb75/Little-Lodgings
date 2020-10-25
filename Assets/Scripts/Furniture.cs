@@ -174,7 +174,7 @@ public class Furniture : MonoBehaviour
     public void SnapToNode(Node node)
     {
         transform.position = node.transform.position;
-        transform.position -= origin;
+        transform.position -= node.transform.rotation * origin;
         this.node = node;
     }
 

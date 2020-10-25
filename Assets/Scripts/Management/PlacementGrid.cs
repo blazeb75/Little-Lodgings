@@ -145,8 +145,8 @@ public class PlacementGrid : MonoBehaviour
     public Vector3 GetCenter()
     {
         Vector3 middle = transform.position;
-        middle.x += size.x / 2f;
-        middle.z += size.y / 2f;
+        Vector3 offset = transform.rotation * new Vector3(size.x / 2f, 0, size.y / 2f);
+        middle += offset;
         return middle;
     }
     public void EnterEditMode()
