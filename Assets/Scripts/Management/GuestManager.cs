@@ -28,21 +28,28 @@ public class GuestManager : MonoBehaviour
 
     public List<Room> rooms;
 
-    public void BeginRandomVisit()
+    public void BeginVisit(Stay stay, GameObject chonkPrefab)
     {
-        GameObject chonk = SpawnChonk(RandomChonk());
-        Stay stay = GenerateStay(chonk.GetComponent<ChonkData>());
+        GameObject chonk = SpawnChonk(chonkPrefab);        
         ChonkInstances.Add(chonk);
         currentStays.Add(stay);
     }
 
-    public GameObject SpawnChonk(GameObject prefab)
+    public Stay GenerateRandomVisit(out GameObject chonkPrefab)
+    {
+        GameObject chonk = RandomChonk();
+        Stay stay = GenerateStay(chonk.GetComponent<ChonkData>());
+        chonkPrefab = chonk;
+        return stay;
+    }
+
+    GameObject SpawnChonk(GameObject prefab)
     {
         GameObject newObj = Instantiate(prefab, spawnPoint.transform.position, spawnPoint.transform.rotation, transform);
         return newObj;
     }
 
-    public Stay GenerateStay(ChonkData chonk)
+    Stay GenerateStay(ChonkData chonk)
     {
         Stay stay = new Stay
         {
@@ -64,7 +71,7 @@ public class GuestManager : MonoBehaviour
         return validPrefabs[index];
     }
 
-    public Room RandomRoom()
+    Room RandomRoom()
     {
         Room[] validRooms = rooms.Where(room => !currentStays.Where(stay => stay.roomID == room.roomID).Any()).ToArray();
         int index = UnityEngine.Random.Range(0, validRooms.Length);
@@ -75,6 +82,7 @@ public class GuestManager : MonoBehaviour
     {
         currentStays.Remove(stay);
         completedStays.Add(stay);
+        stay.chonkInstance.state = ChonkBehaviour.State.Leaving;
     }
 
     public void CheckIn(Stay stay, TimeSpan duration)
@@ -91,6 +99,7 @@ public struct Stay
     public int roomID;
     public DateTime checkInTime;
     public DateTime checkOutTime;
+    public ChonkBehaviour chonkInstance;
     public TimeSpan Duration 
     { 
         get

@@ -6,15 +6,14 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class ChonkBehaviour : MonoBehaviour
 {
-    public enum State { WanderingInBedroom }
+    public enum State { WanderingInBedroom, Leaving }
     public State state;
     public Room room;
     public float minWait;
     public float maxWait;
 
-    private float waitUntil;
-
-    private Node targetNode;
+    [SerializeField]
+    private float waitTimer;
 
     private NavMeshAgent agent;
 
@@ -38,13 +37,18 @@ public class ChonkBehaviour : MonoBehaviour
 
     public void WanderInBedroom()
     {
-        //if(Time.time < waitUntil && Vector3.Distance(transform.position, ))
-        //{
-        //    return;
-        //}
-        //else
-        //{
-
-        //}
+        if (waitTimer > 0 && Vector3.Distance(transform.position,agent.destination) < agent.stoppingDistance + agent.height / 1.9f)
+        {
+            waitTimer -= Time.deltaTime;
+        }
+        else if (waitTimer > 0)
+        {
+            return;
+        }
+        else
+        {
+            agent.SetDestination(room.grid.RandomNode().transform.position);
+            waitTimer = Random.Range(minWait, maxWait);
+        }
     }
 }

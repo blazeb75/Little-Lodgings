@@ -181,6 +181,13 @@ public class PlacementGrid : MonoBehaviour
         }
     }
 
+    public Node RandomNode()
+    {
+        Node[] validNodes = nodes.Where(node => node.GetState() != Node.State.Occupied).ToArray();
+        int index = Random.Range(0, validNodes.Length);
+        return validNodes[index];
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {

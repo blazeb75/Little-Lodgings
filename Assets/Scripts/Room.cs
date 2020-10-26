@@ -8,7 +8,7 @@ public class Room : MonoBehaviour
 {
     public int roomID;
     public bool isBedroom;
-    public PlacementGrid grid;
+    [HideInInspector] public PlacementGrid grid;
 
     private void Start()
     {

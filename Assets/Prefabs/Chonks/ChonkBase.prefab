@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2998665173698518275}
   - component: {fileID: 1083194181918216682}
   - component: {fileID: 7851494338587435358}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ChonkBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,3 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f72b7806dbb19439f8f688a53ef95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
+  room: {fileID: 0}
+  minWait: 0
+  maxWait: 0
